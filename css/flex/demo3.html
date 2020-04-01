@@ -1,0 +1,99 @@
+<!--
+    flex 布局(flex - flexibility 可伸缩性)
+
+    1、在容器上指定 display
+       flex - 容器内的子项使用 flex 布局
+
+    2、在子项上指定 order（子项排序）
+       整型值，数值越小，排序越靠前，可以为负值，默认值为 0
+
+    3、在子项上指定 flex-grow（子项在容器剩余空间中的放大比例）。通常在 flex 属性中指定
+       非负数，默认值为 0
+       设置为 0 就代表即使有剩余空间也不放大
+       如果 a 设置为 1，b 设置为 2，c 设置为 3，则子项 a b c 会等比放大以充满剩余空间
+           结果 a 占 abc 总空间的 1/6，b 占 abc 总空间的 2/6，c 占 abc 总空间的 3/6
+
+    4、在子项上指定 flex-shrink（子项在容器中的缩小比例）。通常在 flex 属性中指定
+       非负数，默认值为 1
+       如果所有子项都设置为 1 则当空间不足时，所有子项等比缩小
+       如果子项 a 设置为 0，其他子项都设置为 1，则当空间不足时，子项 a 不缩小，其他子项等比缩小
+       如果 a 设置为 1，b 设置为 2，c 设置为 3，则当空间不足时，子项 a b c 等比缩小
+           结果 a 缩小的值占 abc 总缩小值的 1/6，b 缩小的值占 abc 总缩小值的 2/6，c 缩小的值占 abc 总缩小值的 3/6
+
+    5、在子项上指定 flex-basis（子项大小）。通常在 flex 属性中指定
+       auto - 自动（默认值）
+       也可以指定一个具体的数值（实际大小首先要遵守 max-width 和 min-width，然后根据 flex-basis 计算实际大小，没有 flex-basis 就根据 width 计算实际大小，flex-basis 和 width 都没有就根据内容计算实际大小）
+
+    6、在子项上指定 flex（是 flex-grow 属性和 flex-shrink 属性和 flex-basis 属性的简写形式）
+       通常就指定此属性即可，而不用分别指定 flex-grow 属性, flex-shrink 属性，flex-basis 属性
+       格式为 <flex-grow> <flex-shrink>? || <flex-basis>（默认值为 none）
+       比如 flex: 0 1 50px 代表 flex-grow 为 0，flex-shrink 为 1，flex-basis 为 50px
+       比如 flex: 0 50px 代表 flex-grow 为 0，flex-basis 为 50px
+       比如 flex: 1 代表 flex-grow 为 1
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>order, flex-grow, flex-shrink, flex-basis, flex</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: white;
+        }
+
+        .container {
+            margin: 10px 0px
+        }
+
+        .container div:nth-child(1) {
+            background-color: red;
+        }
+
+        .container div:nth-child(2) {
+            background-color: green;
+        }
+
+        .container div:nth-child(3) {
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container" style="display: flex">
+    <div style="order: 0">div1</div>
+    <div style="order: -1">div2</div>
+    <div style="order: 1">div3</div>
+</div>
+
+<div class="container" style="display: flex">
+    <div style="flex-grow: 0">div1</div>
+    <div style="flex-grow: 1">div2</div>
+    <div style="flex-grow: 0">div3</div>
+</div>
+
+<div class="container" style="display: flex">
+    <div style="flex-shrink: 0; width: 1000px">div1</div>
+    <div style="flex-shrink: 1; width: 1000px">div2</div>
+    <div style="flex-shrink: 2; width: 1000px">div3</div>
+</div>
+
+<div class="container" style="display: flex">
+    <div style="flex-basis: 50px">div1</div>
+    <div style="flex-basis: 50px; min-width: 100px">div2</div>
+    <div style="flex-grow: 1">div3</div>
+</div>
+
+<div class="container" style="display: flex">
+    <div style="flex: 0 1 50px">div1</div>
+    <div style="flex: 0 50px; min-width: 100px">div2</div>
+    <div style="flex: 1">div3</div>
+</div>
+
+</body>
+</html>

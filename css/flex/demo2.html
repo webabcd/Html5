@@ -1,0 +1,177 @@
+<!--
+    flex 布局(flex - flexibility 可伸缩性)
+
+    1、在容器上指定 display
+       flex - 容器内的子项使用 flex 布局
+
+    2、在容器上指定 justify-content（水平对齐方式）
+       flex-start - 子项左对齐（默认值）
+       flex-end - 子项右对齐
+       center - 子项居中对齐
+       space-between - 子项两端对齐，子项之间的间隔都相等
+       space-around - 子项的两侧间隔相等，即子项之间的间隔比子项与边界的间隔大一倍
+
+    3、在容器上指定 align-items（垂直对齐方式）
+       flex-start - 子项顶对齐（每行所占高度相等）
+       flex-end - 子项底对齐（每行所占高度相等）
+       center - 子项居中对齐（每行所占高度相等）
+       baseline - 子项第一行文字的基线对齐（每行所占高度相等）
+       stretch - 子项拉伸（默认值）
+
+    4、在容器上指定 align-content（垂直对齐方式）
+       flex-start - 子项顶对齐（行之间无间隔）
+       flex-end - 子项底对齐（行之间无间隔）
+       center - 子项居中对齐（行之间无间隔）
+       space-between - 子项两端对齐，子项之间的间隔都相等
+       space-around - 子项的两侧间隔相等，即子项之间的间隔比子项与边界的间隔大一倍
+       stretch - 子项拉伸（默认值）
+
+    5、在子项上指定 align-self（用于设置单个子项的垂直对齐方式，其可覆盖容器的 align-items 属性）
+       auto - 继承容器的 align-items 属性（默认值）
+       flex-start - 参见 align-items
+       flex-end - 参见 align-items
+       center - 参见 align-items
+       baseline - 参见 align-items
+       stretch - 参见 align-items
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>justify-content, align-items, align-content, align-self</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .container {
+            height: 300px;
+            color: white;
+            background-color: black;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: flex-start;
+            align-items: stretch;
+            align-content: stretch;
+        }
+
+        .myDiv {
+            width: 200px;
+            background-color: orange;
+        }
+
+        .myDiv2 {
+            width: 500px;
+            background-color: red;
+        }
+
+        .myDiv3 {
+            align-self: stretch;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            let radioJustifyContentList = document.getElementsByName('justifyContent');
+            let radioAlignItemsList = document.getElementsByName('alignItems');
+            let radioAlignContentList = document.getElementsByName('alignContent');
+            let container = document.getElementsByClassName("container")[0];
+
+            radioJustifyContentList.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    container.style.justifyContent = radio.value;
+                })
+            });
+
+            radioAlignItemsList.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    container.style.alignItems = radio.value;
+                })
+            });
+
+            radioAlignContentList.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    container.style.alignContent = radio.value;
+                })
+            });
+        }
+    </script>
+</head>
+
+justify-content:
+<br />
+<input id="radJustifyContent1" type="radio" name="justifyContent" value="flex-start" checked/>
+<label for="radJustifyContent1">flex-start</label>
+<br />
+<input id="radJustifyContent2" type="radio" name="justifyContent" value="flex-end"/>
+<label for="radJustifyContent2">flex-end</label>
+<br />
+<input id="radJustifyContent3" type="radio" name="justifyContent" value="center"/>
+<label for="radJustifyContent3">center</label>
+<br />
+<input id="radJustifyContent4" type="radio" name="justifyContent" value="space-between"/>
+<label for="radJustifyContent4">space-between</label>
+<br />
+<input id="radJustifyContent5" type="radio" name="justifyContent" value="space-around"/>
+<label for="radJustifyContent5">space-around</label>
+<br />
+<br />
+
+align-items:
+<br />
+<input id="radAlignItems1" type="radio" name="alignItems" value="flex-start"/>
+<label for="radAlignItems1">flex-start</label>
+<br />
+<input id="radAlignItems2" type="radio" name="alignItems" value="flex-end"/>
+<label for="radAlignItems2">flex-end</label>
+<br />
+<input id="radAlignItems3" type="radio" name="alignItems" value="center"/>
+<label for="radAlignItems3">center</label>
+<br />
+<input id="radAlignItems4" type="radio" name="alignItems" value="baseline"/>
+<label for="radAlignItems4">baseline</label>
+<br />
+<input id="radAlignItems5" type="radio" name="alignItems" value="stretch" checked/>
+<label for="radAlignItems5">stretch</label>
+<br />
+<br />
+
+align-content:
+<br />
+<input id="radAlignContent1" type="radio" name="alignContent" value="flex-start"/>
+<label for="radAlignContent1">flex-start</label>
+<br />
+<input id="radAlignContent2" type="radio" name="alignContent" value="flex-end"/>
+<label for="radAlignContent2">flex-end</label>
+<br />
+<input id="radAlignContent3" type="radio" name="alignContent" value="center"/>
+<label for="radAlignContent3">center</label>
+<br />
+<input id="radAlignContent4" type="radio" name="alignContent" value="space-between"/>
+<label for="radAlignContent4">space-between</label>
+<br />
+<input id="radAlignContent5" type="radio" name="alignContent" value="space-around"/>
+<label for="radAlignContent5">space-around</label>
+<br />
+<input id="radAlignContent6" type="radio" name="alignContent" value="stretch" checked/>
+<label for="radAlignContent6">stretch</label>
+<br />
+<br />
+
+
+<div class="container">
+    <div class="myDiv myDiv3">div1</div>
+    <div class="myDiv myDiv2">div2<br />div2<br />div2</div>
+    <div class="myDiv">div3</div>
+    <div class="myDiv myDiv2">div4<br />div4<br />div4</div>
+    <div class="myDiv">div5</div>
+    <div class="myDiv myDiv2">div6<br />div6<br />div6</div>
+    <div class="myDiv">div7</div>
+    <div class="myDiv myDiv2">div8<br />div8<br />div8</div>
+    <div class="myDiv">div9</div>
+</div>
+
+</body>
+</html>
