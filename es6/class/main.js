@@ -22,7 +22,7 @@ import Person_A from './a';
 Person_A.prototype.hello2 = function() {
     return "hello2: " + this.name;
 }
-// 通过 es5 为指定的类添加指定的方法
+// 通过 es6 为指定的类添加指定的方法
 Object.assign(Person_A.prototype,{
     hello3:function() {
         return "hello3: " + this.name;

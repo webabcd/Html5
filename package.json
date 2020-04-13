@@ -2,7 +2,7 @@
   "name": "Html5",
   "version": "1.0.0",
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c -w"
   },
   "dependencies": {}
 }
