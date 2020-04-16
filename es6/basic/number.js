@@ -1,3 +1,6 @@
+// 将指定对象转换为数字
+console.log(Number("100"), Number(true), Number({}), Number([])); // 100 1 NaN 0
+
 // 二进制
 console.log(0b10); // 2
 // 八进制

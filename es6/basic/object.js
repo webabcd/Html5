@@ -58,3 +58,18 @@ console.log(`${JSON.stringify(h)}`);
 // Object.is(value1, value2) 与 “===” 基本类似，只有 -0 和 +0 之间的比较，以及 NaN 的比较有所不同
 console.log(`${1 == "1"}, ${1 === "1"}, ${Object.is({}, {})}, ${-0 === +0}, ${Object.is(-0, +0)}, ${NaN === NaN}, ${Object.is(NaN, NaN)}`);
 // true, false, false, true, false, false, true
+
+
+// 定义对象，设置或获取 key/value
+let o5 = {k1: "aaa", k2: "bbb"};
+o5.k3 = "ccc";
+o5["k4"] = "ddd";
+// Object.keys() - 遍历指定对象的 key
+let keys = Object.keys(o5);
+// Object.values() - 遍历指定对象的 value
+let values = Object.values(o5);
+console.log(keys.join(","), values.join(","), o5.k1, o5["k2"]); // k1,k2,k3,k4 aaa,bbb,ccc,ddd aaa bbb
+
+
+// Object.entries() - 遍历指定对象
+console.log(Object.entries(o5)); // [["k1", "aaa"], ["k2", "bbb"], ["k3", "ccc"], ["k4", "ddd"]]

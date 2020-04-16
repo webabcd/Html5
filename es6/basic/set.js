@@ -32,13 +32,13 @@ console.log(new Set("webabcd"));
 // 结果为 {"w", "e", "b", "a", "b", "c", "d"}
 
 
-// set 可以给数组去重
+// set 可以给数组排重
 console.log(new Set([1, 2, 3, 3, 2]));
 
 
 let a = new Set([1, 2, 3]);
 let b = new Set([4, 3, 2]);
-// set 可以合并，结果去重
+// set 可以合并，结果排重
 console.log(new Set([...a, ...b]));
 // set 可以合并，结果取交集（通过 array 的 filter 实现）
 console.log(new Set([...a].filter(p => b.has(p))));
