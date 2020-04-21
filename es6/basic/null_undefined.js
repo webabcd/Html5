@@ -1,5 +1,8 @@
-console.log(typeof null, typeof undefined); // object undefined
 console.log(undefined == null, undefined === null); // true false
+console.log(null == false, null === false, undefined == false, undefined === false); // false false false false
+console.log(null == true, null === true, undefined == true, undefined === true); // false false false false
+console.log(null ? "true" : "false", undefined ? "true" : "false"); // false false
+console.log(typeof null, typeof undefined); // object undefined
 console.log(Number(null), Number(undefined)); // 0 NaN
 
 

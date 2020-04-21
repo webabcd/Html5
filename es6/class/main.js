@@ -52,5 +52,10 @@ import Person_C from './c';
 // es6 中暂无静态属性，但是可以通过 es5 为指定的类添加指定的静态属性
 Person_C.prop1 = "abc";
 Person_C.prop2 = 100;
-// 调用类的静态方法和静态属性
+// 调用类的静态方法和静态属性（注：类有一个默认的静态属性“name”，它返回的是类名称）
 console.log(`${Person_C.prop1} ${Person_C.prop2} ${Person_C.hello()} ${Person_C.name}`);
+// 输出结果 abc 100 hello: sub hello: super Person$2
+
+
+// 演示 es5 中的 prototype 的使用
+export * from './prototype';

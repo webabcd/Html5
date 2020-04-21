@@ -5,8 +5,8 @@
 function a(p1, p2="webabcd") {
     return `${p1} ${p2}`;
 }
-console.log(`${a("hello", "wanglei")}, ${a("hello")}, ${a("hello", undefined)}`);
-// hello wanglei, hello webabcd, hello webabcd
+console.log(`${a("hello", "wanglei")}, ${a("hello")}, ${a("hello", undefined)}, ${a("a", "b", "c", "d")}`);
+// hello wanglei, hello webabcd, hello webabcd, a b
 
 
 // 不定参数
@@ -33,3 +33,18 @@ let g = (p1, p2) => { // 函数逻辑为多行表达式（加上大括号即可�
 console.log(`${c()}, ${d("hello", "webabcd")}, ${e("hello")}, ${f("hello").content}, ${g("hello", "webabcd")}`);
 // hello, hello webabcd, hello, hello, hello webabcd
 
+
+
+// 关于 lambda 表达式的 this 请参见如下示例
+// 但是如果用 rollup 编译的话，会用 undefined 替换掉 this
+/*
+var name = "wanglei";
+let h = {
+    name: "webabcd",
+    hello: () => {
+        // 这里的 this 指向的是 window
+        return this.name; // 返回的是 wanglei
+    }
+};
+console.log(h.hello()); // wanglei
+*/

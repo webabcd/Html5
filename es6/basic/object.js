@@ -7,19 +7,35 @@ console.log(`${JSON.stringify(a)}, ${JSON.stringify(b)}`);
 // {"name":"webabcd","age":40}, {"name":"webabcd","age":40}
 
 
-// 定义对象时省略方法中的 function 关键字
+// 定义对象的方法时，可以省略 function 关键字或者使用 lambda 表达式
 const c = {
-    hello() { // 定义对象时省略方法中的 function 关键字
+    helloOld:function() { // 这是 es5 写法，等价于下面的
+        return "hello";
+    },
+    helloNew() { // 定义对象的方法时，可以省略 function 关键字
+        return "hello";
+    },
+    helloLambda: () => { // 定义对象的方法时，可以使用 lambda 表达式
         return "hello";
     }
 }
+console.log(`${c.helloOld()}, ${c.helloNew()}, ${c.helloLambda()}`);
+// hello, hello, hello
+
+
+// 对象的 getter 和 setter
 const d = {
-    hello:function() { // 这是 es5 写法，等价于上面的
-        return "hello";
-    }
+    _name: "webabcd",
+    get name() { // getter 和 setter 的写法
+        return this._name;
+    },
+    set name(val) {
+        this._name = val;
+    },
 }
-console.log(`${c.hello()}, ${d.hello()}`);
-// hello, hello
+d.name = "wanglei";
+console.log(d.name);
+// wanglei
 
 
 // 使用表达式来定义属性名或方法名
@@ -73,3 +89,63 @@ console.log(keys.join(","), values.join(","), o5.k1, o5["k2"]); // k1,k2,k3,k4 a
 
 // Object.entries() - 遍历指定对象
 console.log(Object.entries(o5)); // [["k1", "aaa"], ["k2", "bbb"], ["k3", "ccc"], ["k4", "ddd"]]
+
+
+// 说说 call(), apply(), bind() - 均用于调用的时候修改 this 的指向
+let o6 = {
+    name: "webabcd",
+    age: 40,
+    hello(p1, p2) {
+        console.log(`name:${this.name}, age:${this.age}, p1:${p1}, p2:${p2}`);
+    }
+};
+o6.name = "wanglei";
+// hello() 中的 this 指向的是 o6
+o6.hello("a", "b"); // name:wanglei, age:40, p1:a, p2:b
+let o7 = {
+    name: "wanglei",
+    age: 20,
+};
+// call(thisObj,arg1,arg2,arg3,……) - hello() 中的 this 指向的是 call() 的第 1 个参数
+o6.hello.call(o7, "x", "y"); // name:wanglei, age:20, p1:x, p2:y
+// apply(thisObj,argArr) - hello() 中的 this 指向的是 apply() 的第 1 个参数
+o6.hello.apply(o7, ["x", "y"]); // name:wanglei, age:20, p1:x, p2:y
+// bind(thisObj,arg1,arg2,arg3,……) - hello() 中的 this 指向的是 bind() 的第 1 个参数（bind() 返回的是一个函数，要拿到结果需要再“()”一下，其他与 call() 一样）
+o6.hello.bind(o7, "x", "y")(); // name:wanglei, age:20, p1:x, p2:y
+
+
+// Object.defineProperty()/Object.defineProperties() - 扩展对象的属性
+// Object.getOwnPropertyNames() - 遍历对象的属性名
+let o8 = {
+    name: "webabcd"
+};
+Object.defineProperty(o8, "p1", {
+    value: "v1",
+    writable:true
+});
+Object.defineProperties(o8, {
+    'p2': {
+        value: "v2",
+        writable: true
+    },
+    'p3': {
+        value: "v3", // 不同于 key value
+        writable: true
+    }
+});
+let names = Object.getOwnPropertyNames(o8);
+console.log(o8.p1, o8.p2, o8.p3, names.join(","));
+// v1 v2 v3 name,p1,p2,p3
+
+
+// preventExtensions() - 禁止指定对象添加新属性
+// Object.preventExtensions(o8);
+
+// isExtensible() - 是否可为指定对象添加新属性，默认为 true，如果调用了 preventExtensions() 则此值为 false
+// Object.isExtensible(o8);
+
+// Object.seal() - 先调用 preventExtensions()，再将对象的所有属性标记为 configurable:false
+// Object.seal(o8);
+
+// Object.freeze() - 先调用 seal()，再将对象的所有属性标记为 writable:false
+// Object.freeze(o8);
