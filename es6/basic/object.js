@@ -77,6 +77,8 @@ console.log(`${1 == "1"}, ${1 === "1"}, ${Object.is({}, {})}, ${-0 === +0}, ${Ob
 
 
 // 定义对象，设置或获取 key/value
+// "xxx" in obj - 判断 obj 里是否有名为 xxx 的 key
+// 注：key/value 和属性是不一样的，关于属性后面有写
 let o5 = {k1: "aaa", k2: "bbb"};
 o5.k3 = "ccc";
 o5["k4"] = "ddd";
@@ -84,7 +86,7 @@ o5["k4"] = "ddd";
 let keys = Object.keys(o5);
 // Object.values() - 遍历指定对象的 value
 let values = Object.values(o5);
-console.log(keys.join(","), values.join(","), o5.k1, o5["k2"]); // k1,k2,k3,k4 aaa,bbb,ccc,ddd aaa bbb
+console.log(keys.join(","), values.join(","), o5.k1, o5["k2"], "k1" in o5, "k9" in o5); // k1,k2,k3,k4 aaa,bbb,ccc,ddd aaa bbb true false
 
 
 // Object.entries() - 遍历指定对象
@@ -116,7 +118,10 @@ o6.hello.bind(o7, "x", "y")(); // name:wanglei, age:20, p1:x, p2:y
 
 // Object.defineProperty()/Object.defineProperties() - 扩展对象的属性
 // Object.getOwnPropertyNames() - 遍历对象的属性名
+// "xxx" in obj - 判断 obj 里是否有名为 xxx 的属性
+// 注：key/value 和属性是不一样的，关于 key/value 上面有说
 let o8 = {
+    // 定义对象的属性
     name: "webabcd"
 };
 Object.defineProperty(o8, "p1", {
@@ -134,8 +139,8 @@ Object.defineProperties(o8, {
     }
 });
 let names = Object.getOwnPropertyNames(o8);
-console.log(o8.p1, o8.p2, o8.p3, names.join(","));
-// v1 v2 v3 name,p1,p2,p3
+console.log(o8.p1, o8.p2, o8.p3, names.join(","), "name" in o8, "p1" in o8, "p9" in o8);
+// v1 v2 v3 name,p1,p2,p3 true true false
 
 
 // preventExtensions() - 禁止指定对象添加新属性
@@ -149,3 +154,12 @@ console.log(o8.p1, o8.p2, o8.p3, names.join(","));
 
 // Object.freeze() - 先调用 seal()，再将对象的所有属性标记为 writable:false
 // Object.freeze(o8);
+
+
+// delete - 删除对象的属性
+let o9 = {
+    name: "webabcd"
+}
+console.log(o9.name); // webabcd
+delete o9.name;
+console.log(o9.name); // undefined

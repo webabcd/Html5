@@ -55,7 +55,7 @@ console.log(a.map(function (p) { // 这里不能用 lambda 表达式，不然 th
 
 
 
-// 对象转数组
+// 将类似数组的对象（ArrayLike Object）转换为数组
 // 对象的属性名必须是整型（数组会自动按属性名排序），必须有 length 属性
 console.log(Array.from({
     0: "1",
@@ -207,3 +207,11 @@ console.log(k.filter(p => p)); // [1, 2, 3, 4, 5]
 // filter() 一般用于从数组中筛选出符合条件的数据
 // filter() 的第 2 个参数是 thisArg 用于指定处理函数中的 this 对象，请参见之前 map() 的用法
 console.log(k.filter(p => p > 1)); // [2, 3, 4, 5]
+
+
+// ... - 将数组打散
+function l (a, b, c) {
+    return a + b + c;
+}
+let m = [1, 2, 3];
+console.log(l(...m)); // 6
