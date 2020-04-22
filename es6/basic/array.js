@@ -215,3 +215,13 @@ function l (a, b, c) {
 }
 let m = [1, 2, 3];
 console.log(l(...m)); // 6
+
+
+// 数组的解构赋值（destructuring）
+let [x1, x2 = 100, x3, x4 = 4, x5 = x4] = [1, 2, 3];
+console.log(x1, x2, x3, x4, x5); // 1 2 3 4 4
+let [x6, x7, x8] = "web";
+console.log(x6, x7, x8); // w e b
+// 剩余的都放入 ... 标记的变量
+let [y1, y2, ...yyy] = [1, 2, 3, 4, 5];
+console.log(y1, y2, yyy); // 1 2 [3, 4, 5]

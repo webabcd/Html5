@@ -163,3 +163,21 @@ let o9 = {
 console.log(o9.name); // webabcd
 delete o9.name;
 console.log(o9.name); // undefined
+
+
+// 对象的解构赋值（destructuring）
+// 将值赋给同属性名指向的变量
+let {a: x1, b: x2} = {a: "aaa", b: "bbb"};
+console.log(x1, x2); // aaa bbb
+// 下面这句是简写，写全了就是 let {x3: x3, x4: x4} = {x3: "aaa", x4: "bbb"};
+let {x3, x4} = {x3: "aaa", x4: "bbb"};
+console.log(x3, x4); // aaa bbb
+// 带默认值的
+let {a: x5 = 1, b: x6 = 2} = {a: 3};
+console.log(x5, x6); // 3 2
+// 下面这句是简写，写全了就是 let {x7: x7 = 1, x8: x8 = 2} = {x7: 3};
+let {x7 = 1, x8 = 2} = {x7: 3};
+console.log(x7, x8); // 3 2
+// 找不到的都放入 ... 标记的变量
+let {y1, y2, ...yyy} = {y5: 5, y1: 1, y2: 2, y3: 3, y4: 4};
+console.log(y1, y2, yyy); // 1 2 {y5: 5, y3: 3, y4: 4}
