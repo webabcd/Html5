@@ -73,8 +73,7 @@ console.log(new proxy3(100, 50).hello()); // 150
 
 
 
-// Reflect - 反射（把 Object 的一些方法移植到了 Reflect）
-// 注：可以参见 object.js 中的关于 Object 的相关的说明
+// Reflect - 反射
 let target4 = {
     name: 'webabcd',
     age: 40,
@@ -115,9 +114,14 @@ console.log(obj.hello());
 
 /*
  * 关于 Reflect 除了上面说的，还有如下：
- * defineProperty(), deleteProperty(), getPrototypeOf(), setPrototypeOf(), preventExtensions(), isExtensible(), ownKeys(),
- *
- * 注：可以参见 object.js 中的关于 Object 的相关的说明
+ * 注：这些都可以在 Object 中找到相同的用法，可以参见 object.js 中的关于 Object 的相关的说明
+ * defineProperty() - 类似 Object.defineProperty()
+ * deleteProperty() - 类似 delete obj.prop
+ * getPrototypeOf() - 类似 Object.getPrototypeOf()
+ * setPrototypeOf() - 类似 Object.setPrototypeOf()
+ * preventExtensions() - 类似 Object.preventExtensions()
+ * isExtensible() - 类似 Object.isExtensible()
+ * ownKeys() - 类似 Object.getOwnPropertyNames()
  */
 
 
