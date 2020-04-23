@@ -78,19 +78,39 @@ console.log(`${1 == "1"}, ${1 === "1"}, ${Object.is({}, {})}, ${-0 === +0}, ${Ob
 
 // 定义对象，设置或获取 key/value
 // "xxx" in obj - 判断 obj 里是否有名为 xxx 的 key
-// 注：key/value 和属性是不一样的，关于属性后面有写
-let o5 = {k1: "aaa", k2: "bbb"};
-o5.k3 = "ccc";
-o5["k4"] = "ddd";
-// Object.keys() - 遍历指定对象的 key
+let o5 = {k1: "aaa", k2: "bbb"}; // 可写，可枚举
+o5.k3 = "ccc"; // 可写，可枚举
+o5["k4"] = "ddd"; // 可写，可枚举
+// Object.defineProperty()/Object.defineProperties() - 扩展对象的属性
+// "xxx" in obj - 判断 obj 里是否有名为 xxx 的属性
+Object.defineProperty(o5, "p1", {
+    value: "v1",
+    writable: true, // 可写（默认值为 false）
+    enumerable: true // 可枚举（默认值为 false）
+});
+Object.defineProperties(o5, {
+    'p2': {
+        value: "v2",
+        writable: true
+    },
+    'p3': {
+        value: "v3",
+        writable: true
+    }
+});
+// Object.keys() - 遍历指定对象的 key（只能遍历可枚举的）
 let keys = Object.keys(o5);
-// Object.values() - 遍历指定对象的 value
+// Object.values() - 遍历指定对象的 value（只能遍历可枚举的）
 let values = Object.values(o5);
-console.log(keys.join(","), values.join(","), o5.k1, o5["k2"], "k1" in o5, "k9" in o5); // k1,k2,k3,k4 aaa,bbb,ccc,ddd aaa bbb true false
-
-
-// Object.entries() - 遍历指定对象
-console.log(Object.entries(o5)); // [["k1", "aaa"], ["k2", "bbb"], ["k3", "ccc"], ["k4", "ddd"]]
+// Object.entries() - 遍历指定对象的 key/value（只能遍历可枚举的）
+let entries = Object.entries(o5);
+// Object.getOwnPropertyNames() - 遍历对象的属性名（无论是否可枚举，均可遍历）
+let names = Object.getOwnPropertyNames(o5);
+console.log(keys); // ["k1", "k2", "k3", "k4", "p1"]
+console.log(values); // ["aaa", "bbb", "ccc", "ddd", "v1"]
+console.log(entries); // [["k1", "aaa"], ["k2", "bbb"], ["k3", "ccc"], ["k4", "ddd"], ["p1", "v1"]]
+console.log(names); // ["k1", "k2", "k3", "k4", "p1", "p2", "p3"]
+console.log(o5.k1, o5["p3"], "k1" in o5, "p9" in o5); // aaa v3 true false
 
 
 // 说说 call(), apply(), bind() - 均用于调用的时候修改 this 的指向
@@ -114,33 +134,6 @@ o6.hello.call(o7, "x", "y"); // name:wanglei, age:20, p1:x, p2:y
 o6.hello.apply(o7, ["x", "y"]); // name:wanglei, age:20, p1:x, p2:y
 // bind(thisObj,arg1,arg2,arg3,……) - hello() 中的 this 指向的是 bind() 的第 1 个参数（bind() 返回的是一个函数，要拿到结果需要再“()”一下，其他与 call() 一样）
 o6.hello.bind(o7, "x", "y")(); // name:wanglei, age:20, p1:x, p2:y
-
-
-// Object.defineProperty()/Object.defineProperties() - 扩展对象的属性
-// Object.getOwnPropertyNames() - 遍历对象的属性名
-// "xxx" in obj - 判断 obj 里是否有名为 xxx 的属性
-// 注：key/value 和属性是不一样的，关于 key/value 上面有说
-let o8 = {
-    // 定义对象的属性
-    name: "webabcd"
-};
-Object.defineProperty(o8, "p1", {
-    value: "v1",
-    writable:true
-});
-Object.defineProperties(o8, {
-    'p2': {
-        value: "v2",
-        writable: true
-    },
-    'p3': {
-        value: "v3", // 不同于 key value
-        writable: true
-    }
-});
-let names = Object.getOwnPropertyNames(o8);
-console.log(o8.p1, o8.p2, o8.p3, names.join(","), "name" in o8, "p1" in o8, "p9" in o8);
-// v1 v2 v3 name,p1,p2,p3 true true false
 
 
 // preventExtensions() - 禁止指定对象添加新属性
