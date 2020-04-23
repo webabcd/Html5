@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button id="buttonStartThread">启动 worker 线程</button>
+<p id="result"></p>
+<script>
+    let buttonStartThread = document.getElementById('buttonStartThread');
+    buttonStartThread.onclick = function() {
+        let worker = new Worker('worker.js');
+        // UI 线程给 worker 线程传递数据
+        worker.postMessage(new Date());
+
+        // 收到 worker 线程发过来的数据
+        worker.onmessage = function(event) {
+            let data = event.data;
+            console.log("从 worker 线程收到数据", data);
+        }
+    }
+</script>
+</body>
+</html>
