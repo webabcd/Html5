@@ -80,5 +80,4 @@ console.log(c.name, c.age, new C().age, c_prototype.isPrototypeOf(c));
 // webabcd 100 100 true
 
 
-
-
+// 注：能用 Reflect 的方法就用 Reflect 的，而不要再用 Object 的了

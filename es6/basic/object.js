@@ -148,6 +148,8 @@ o6.hello.bind(o7, "x", "y")(); // name:wanglei, age:20, p1:x, p2:y
 // Object.freeze() - 先调用 seal()，再将对象的所有属性标记为 writable:false
 // Object.freeze(o8);
 
+// 注：能用 Reflect 的方法就用 Reflect 的，而不要再用 Object 的了
+
 
 // delete - 删除对象的属性
 let o9 = {

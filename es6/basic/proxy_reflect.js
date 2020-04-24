@@ -114,7 +114,7 @@ console.log(obj.hello());
 
 /*
  * 关于 Reflect 除了上面说的，还有如下：
- * 注：这些都可以在 Object 中找到相同的用法，可以参见 object.js 中的关于 Object 的相关的说明
+ * 注：这些都可以在 Object 中找到相同的用法，可以参见 class/prototype.js 中的关于 Object 的相关说明以及 basic/object.js 中的关于 Object 的相关的说明
  * defineProperty() - 类似 Object.defineProperty()
  * deleteProperty() - 类似 delete obj.prop
  * getPrototypeOf() - 类似 Object.getPrototypeOf()
@@ -122,6 +122,8 @@ console.log(obj.hello());
  * preventExtensions() - 类似 Object.preventExtensions()
  * isExtensible() - 类似 Object.isExtensible()
  * ownKeys() - 类似 Object.getOwnPropertyNames()
+ *
+ * 注：能用 Reflect 的方法就用 Reflect 的，而不要再用 Object 的了
  */
 
 
