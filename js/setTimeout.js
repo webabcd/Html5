@@ -1,0 +1,6 @@
+let hello = name => {
+    console.log("hello: " + name);
+};
+
+setTimeout(hello, 1000); // hello: undefined
+setTimeout(() => { hello("webabcd") }, 1000); // hello: webabcd

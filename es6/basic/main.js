@@ -7,7 +7,5 @@
 // export * from './set'
 export * from './array'
 // export * from './arrayBuffer'
-// export * from './iterator_generator'
 // export * from './function'
 // export * from './object'
-// export * from './proxy_reflect'

@@ -1,3 +1,14 @@
+1、安装 webstorm
+
+2、安装nodejs会自动装好npm
+https://nodejs.org/en/download/
+
+3、
+npm i rollup -g
+
+
+
+
 npm install -g rollup
 npm install -g yarn
 
