@@ -1,37 +1,97 @@
 (function () {
     'use strict';
 
-    var hello = function hello(name) {
-      console.log("hello: " + name);
-    }; // 最简单的不传参的写法
+    /**
+     * CORS - Cross-origin resource sharing（跨域请求）
+     * 所谓的跨域就是协议不同，或者域名不同，或者端口号不同
+     * 为了支持跨域请求需要服务端对 response header 做如下配置
+     *     Access-Control-Allow-Origin: *       // 配置允许访问的域名（默认无法跨域访问）
+     *     Access-Control-Allow-Headers: *      // 配置支持的自定义的 request header
+     *     Access-Control-Request-Method: *     // 配置支持的 http method（跨域时默认只支持 head, get, post）
+     *     Access-Control-Expose-Headers: *     // 配置有权限获取的 response header（跨域时默认只能获取到 Cache-Control, Content-Language, Content-Type, Expires, Last-Modified, Pragma）
+     */
+    var a = function a() {
+      // 实例化
+      var xhr = new XMLHttpRequest(); // 请求的超时时间（单位：毫秒）
+
+      xhr.timeout = 30000; // 响应的数据格式
+
+      xhr.responseType = "text"; // 第 1 个参数：http method
+      // 第 2 个参数：url
+      // 第 3 个参数：是否是异步请求
+
+      xhr.open('GET', 'http://localhost:42858/get_long', true); // 设置 request header（必须在 open() 之后指定，且必须是 Access-Control-Allow-Headers 允许的）
+
+      xhr.setRequestHeader('api_key', 'value');
+
+      xhr.onreadystatechange = function () {
+        switch (xhr.readyState) {
+          case 0:
+            console.log("UNSENT");
+            break;
+
+          case 1:
+            console.log("OPENED");
+            break;
+
+          case 2:
+            // 收到响应头
+            console.log("HEADERS_RECEIVED");
+            break;
+
+          case 3:
+            // 正在下载响应体（一次请求可能会触发多次）
+            console.log("LOADING");
+            break;
+
+          case 4:
+            // 请求结束，不管是成功还是失败
+            console.log("DONE");
+            break;
+        }
+      }; // 请求完成
 
 
-    setTimeout(hello, 1000); // 1 秒后打印 hello: undefined
-    // 可以传参也可以不传参
+      xhr.onload = function (e) {
+        // 遍历 response header（只能拿到有权限拿到的）
+        var headers = this.getAllResponseHeaders();
+        var arr = headers.trim().split(/[\r\n]+/);
+        arr.forEach(function (line) {
+          console.log(line);
+        }); // 获取指定的 response header（只能拿到有权限拿到的）
 
-    setTimeout(function () {
-      hello("webabcd");
-    }, 1000); // 1 秒后打印 hello: webabcd
-    // setTimeout() 会返回这个计时器的 timeoutId
-    // 通过 clearTimeout(timeoutId) 可以在计时器指定的函数启动之前停止它（启动后则停止不了）
+        console.log("Content-Type: " + xhr.getResponseHeader("Content-Type")); // status - 响应的 http 状态码
+        // response - 响应的内容
 
-    var timeoutId = setTimeout(function () {
-      console.log("wanglei");
-    }, 2000); // 2 秒后启动
+        console.log(this.status, this.response);
+      }; // 请求超时
 
-    setTimeout(function () {
-      clearTimeout(timeoutId);
-    }, 1000); // 1 秒后停止上面的计时器，所以本例不会打印任何信息
-    // 不指定计时器的启动时间，则默认为 0 秒后启动，下面 2 句是一样的
-    // js 是单线程的，所以就算通过 setTimeout() 指定 0 秒后启动，也是要等到当前 loop 之后的下一个 loop 才会执行
-    // 所以打印 “start” 之后才会打印 “diandian 1” 和 “diandian 2”
 
-    setTimeout(function () {
-      console.log("diandian 1");
-    });
-    setTimeout(function () {
-      console.log("diandian 2");
-    }, 0);
-    console.log("start");
+      xhr.ontimeout = function (e) {
+        console.log("timeout");
+      }; // 请求失败
+
+
+      xhr.onerror = function (e) {
+        console.log("error");
+      }; // 下载进度发生变化
+
+
+      xhr.onprogress = function (e) {
+        // loaded - 已下载字节数
+        // total - 总共字节数
+        // timeStamp - 从开始请求到现在经历的时间（单位：毫秒）
+        console.log(e.loaded, e.total, e.timeStamp);
+      }; // 开始请求
+
+
+      xhr.send();
+    };
+
+    a(); // 构造表单数据
+    // var formData = new FormData();
+    // formData.append('username', 'johndoe');
+    // formData.append('id', 123456);
+    // https://blog.csdn.net/z550449054/article/details/80538623
 
 }());

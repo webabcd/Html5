@@ -1,1 +1,2 @@
-export * from './setTimeout'
+// export * from './setTimeout'
+export * from './XMLHttpRequest'

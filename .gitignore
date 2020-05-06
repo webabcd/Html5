@@ -1,2 +1,5 @@
 .idea
 node_modules
+WebApi/.vs
+WebApi/WebApi/bin
+WebApi/WebApi/obj
