@@ -21,6 +21,7 @@ babel-polyfill: 转换 es6 的新 api 以及兼容不同浏览器
 05、命令说明
 uninstall 是卸载
 i 是 install 的简写
+-g 是 --global 的简写
 -S 是 --save 的简写
 -D 是 --save-dev 的简写
 npm i module-name -save 自动把模块和版本号添加到 dependencies 部分

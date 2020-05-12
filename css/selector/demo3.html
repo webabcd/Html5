@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后代选择器，子选择器，相邻兄弟选择器</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            后代选择器（descendant selector）
+            选中的是 h1 内的所有 span 元素，无论几层嵌套
+         */
+        h1 span {
+            color: red;
+        }
+
+        /*
+            子选择器（child selector）
+            选中的是 h2 的所有子 span 元素，仅包括 h2 的儿子，孙子和孙子之后的都不包括
+         */
+        h2 > span {
+            color: green;
+        }
+
+        /*
+            相邻兄弟选择器（adjacent sibling selector）
+            选中的是 h3 内的
+            div 的同辈分的下一个 span 元素
+         */
+        h3 div + span {
+            color: blue;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>
+    <span>span 1</span>
+    <div>
+        <span>span 2</span>
+    </div>
+    <span>span 3</span>
+</h1>
+<br /><br />
+
+<h2>
+    <span>span 1</span>
+    <div>
+        <span>span 2</span>
+    </div>
+    <span>span 3</span>
+</h2>
+<br /><br />
+
+<h3>
+    <span>span 1</span>
+    <div>
+        <span>span 2</span>
+    </div>
+    <span>span 3</span>
+</h3>
+
+</body>
+</html>

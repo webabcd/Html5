@@ -53,17 +53,17 @@
         window.onload = () => {
             let radioFlexDirectionList = document.getElementsByName('flexDirection');
             let radioFlexWrapList = document.getElementsByName('flexWrap');
-            let container = document.getElementsByClassName("container")[0];
+            let container1 = document.getElementsByClassName("container1")[0];
 
             radioFlexDirectionList.forEach(radio => {
                 radio.addEventListener('change', () => {
-                    container.style.flexDirection = radio.value;
+                    container1.style.flexDirection = radio.value;
                 })
             });
 
             radioFlexWrapList.forEach(radio => {
                 radio.addEventListener('change', () => {
-                    container.style.flexWrap = radio.value;
+                    container1.style.flexWrap = radio.value;
                 })
             });
         }

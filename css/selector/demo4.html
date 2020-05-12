@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪类（pseudo class）</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            伪类用于为类选择器添加特殊的效果
+        */
+
+        /* 未访问的链接 */
+        .mya:link {
+            color: red
+        }
+        /* 访问过的链接 */
+        .mya:visited {
+            color: green
+        }
+        /* 鼠标移动到链接上 */
+        .mya:hover {
+            color: blue
+        }
+        /* 鼠标在链接上按下 */
+        .mya:active {
+            color: orange
+        }
+
+        /* 可获取焦点元素获取到了焦点 */
+        .mya:focus {
+            color: purple
+        }
+
+        /* 选中的是 div 的 lang 属性值为 abc 的元素 */
+        div:lang(abc) {
+            color: green;
+        }
+
+        /* 选中的是 h1 内的第 1 个 div 元素 */
+        h1 div:first-child {
+            color: red;
+        }
+
+        /* 选中的是 h2 内的第 1 个 div 元素内的全部 span 元素 */
+        h2 div:first-child span {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+
+<a href="http://webabcd.cnblogs.com" target="_blank" class="mya">webabcd.cnblogs.com</a>
+
+<p>
+    <div lang="abc">webabcd</div>
+</p>
+
+<h1>
+    <div>abc</div>
+    <div>xyz</div>
+</h1>
+
+<h2>
+    <div>xxx<span>a</span><span>b</span><span>c</span>yyy</div>
+    <div>xyz</div>
+</h2>
+
+</body>
+</html>
