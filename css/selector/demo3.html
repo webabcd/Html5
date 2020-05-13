@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>后代选择器，子选择器，相邻兄弟选择器</title>
+    <title>后代选择器，子选择器，相邻兄弟选择器，兄弟选择器</title>
     <!-- 引用外部样式表
     <link rel="stylesheet" type="text/css" href="style.css" />
     -->
@@ -14,7 +14,7 @@
 
         /*
             后代选择器（descendant selector）
-            选中的是 h1 内的所有 span 元素，无论几层嵌套
+            匹配的是 h1 内的所有 span 元素，无论几层嵌套
          */
         h1 span {
             color: red;
@@ -22,7 +22,7 @@
 
         /*
             子选择器（child selector）
-            选中的是 h2 的所有子 span 元素，仅包括 h2 的儿子，孙子和孙子之后的都不包括
+            匹配的是 h2 的所有子 span 元素，仅包括 h2 的儿子，孙子和孙子之后的都不包括
          */
         h2 > span {
             color: green;
@@ -30,10 +30,19 @@
 
         /*
             相邻兄弟选择器（adjacent sibling selector）
-            选中的是 h3 内的
+            匹配的是 h3 内的
             div 的同辈分的下一个 span 元素
          */
         h3 div + span {
+            color: blue;
+        }
+
+        /*
+            兄弟选择器（sibling selector）
+            匹配的是 h4 内的
+            div 的同辈分的之后的所有 span 元素
+         */
+        h4 div ~ span {
             color: blue;
         }
 
@@ -60,12 +69,25 @@
 <br /><br />
 
 <h3>
-    <span>span 1</span>
+    <span>span 0</span>
     <div>
-        <span>span 2</span>
+        <span>span 1</span>
     </div>
+    <span>span 2</span>
+    <br />
     <span>span 3</span>
 </h3>
+<br /><br />
+
+<h4>
+    <span>span 0</span>
+    <div>
+        <span>span 1</span>
+    </div>
+    <span>span 2</span>
+    <br />
+    <span>span 3</span>
+</h4>
 
 </body>
 </html>
