@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>position 定位（static, relative, absolute, fixed）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div[class] div:nth-of-type(1) { height: 50px; color: white; background-color: red; }
+        div[class] div:nth-of-type(2) { height: 50px; color: white; background-color: green; }
+        div[class] div:nth-of-type(3) { height: 50px; color: white; background-color: blue; }
+
+        /*
+            默认值是 position:static，其会按正常的文档流走
+            top, right, bottom, left, z-index 等属性无效
+        */
+        .c1 div {
+            position: static;
+        }
+
+        /*
+            相对定位 position:relative
+            相对于自身的正常位置定位，不影响其他元素
+            不脱离原先文档流，即原先所在位置会保留
+            top, right, bottom, left, z-index 等属性有效
+        */
+        .c2 div:nth-of-type(2) {
+            position: relative;
+            top: -10px;
+            left: -20px;
+            z-index: -1;
+        }
+
+        /*
+            绝对定位 position:absolute
+            如果父容器是 static 定位，则会相对于根元素定位
+            脱离原先文档流，即原先所在位置会被移除（另外，div 宽度默认是撑满的，但是绝对定位的 div 宽度默认是由内容决定的）
+            top, right, bottom, left, z-index 等属性有效
+        */
+        .c3 div:nth-of-type(2) {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        /*
+            绝对定位 position:absolute
+            如果父容器设置了绝对定位或相对定位，则会相对于父容器定位
+            脱离原先文档流，即原先所在位置会被移除（另外，div 宽度默认是撑满的，但是绝对定位的 div 宽度默认是由内容决定的）
+            top, right, bottom, left, z-index 等属性有效
+        */
+        .c4 { position: relative; }
+        .c4 div:nth-of-type(2) {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        /*
+            绝对定位 position:fixed
+            无论父容器是什么定位方式，都会相对于根元素定位
+            脱离原先文档流，即原先所在位置会被移除（另外，div 宽度默认是撑满的，但是绝对定位的 div 宽度默认是由内容决定的）
+            top, right, bottom, left, z-index 等属性有效
+        */
+        .c5 {
+            position: relative;
+        }
+        .c5 div:nth-of-type(2) {
+            position: fixed;
+            top: 10px;
+            left: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="c1">
+    <div>c1_aaa</div>
+    <div>c1_bbb</div>
+    <div>c1_ccc</div>
+</div>
+<br />
+
+<div class="c2">
+    <div>c2_aaa</div>
+    <div>c2_bbb</div>
+    <div>c2_ccc</div>
+</div>
+<br />
+
+<div class="c3">
+    <div>c3_aaa</div>
+    <div>c3_bbb</div>
+    <div>c3_ccc</div>
+</div>
+<br />
+
+<div class="c4">
+    <div>c4_aaa</div>
+    <div>c4_bbb</div>
+    <div>c4_ccc</div>
+</div>
+<br />
+
+<div class="c5">
+    <div>c5_aaa</div>
+    <div>c5_bbb</div>
+    <div>c5_ccc</div>
+</div>
+
+</body>
+</html>
