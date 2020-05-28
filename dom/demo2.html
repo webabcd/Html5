@@ -13,6 +13,7 @@
     let result = document.getElementById("result");
 
     /**
+     * document.title - html 的 title
      * createElement() - 创建 html 元素
      * createTextNode() - 创建文本元素
      * appendChild() - 在最后添加子元素
@@ -41,14 +42,16 @@
     /**
      * hasChildNodes() - 是否有子节点，包括 html 元素和文本元素
      * childNodes() - 获取全部子节点，包括 html 元素和文本元素
+     * parentElement - 父 html 元素
      * firstElementChild - 第一个 html 子元素
      * lastElementChild - 最后一个 html 子元素
      * nextElementSibling - 同级的下一个 html 元素
      * previousElementSibling - 同级的上一个 html 元素
-     * firstElementChild - 第一个子元素（html 元素或文本元素）
-     * lastElementChild - 最后一个子元素（html 元素或文本元素）
-     * nextElementSibling - 同级的下一个元素（html 元素或文本元素）
-     * previousElementSibling - 同级的上一个元素（html 元素或文本元素）
+     * parentNode - 父节点
+     * firstChild - 第一个子节点（html 元素或文本元素）
+     * lastChild - 最后一个子节点（html 元素或文本元素）
+     * nextSibling - 同级的下一个节点（html 元素或文本元素）
+     * previousSibling - 同级的上一个节点（html 元素或文本元素）
      */
     console.log(result.hasChildNodes(), result.childNodes.length, result.childNodes[0].innerHTML); // true 3 "222<br>333"
     console.log(result.firstElementChild.innerHTML, result.lastElementChild.outerHTML); // 222<br>333 <input type="text" value="我是 input">
