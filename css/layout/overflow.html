@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>overflow 内容溢出时的样式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: red;
+        }
+
+        div {
+            background-color: orange;
+            width: 100px;
+            height: 40px;
+            margin: 10px;
+        }
+
+        /*
+         * overflow - 内容溢出时的样式
+         *   hidden - 隐藏溢出的内容
+         *   scroll - 显示滚动条
+         *   visible - 溢出就让它溢出吧（默认值）
+         */
+        div:nth-child(1) {
+            overflow: hidden;
+        }
+
+        div:nth-child(2) {
+            overflow: scroll;
+        }
+
+        div:nth-child(3) {
+            overflow: visible;
+        }
+    </style>
+</head>
+<body>
+
+<div>内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出</div>
+
+<div>内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出</div>
+
+<div>内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出内容溢出</div>
+
+</body>
+</html>
