@@ -3,8 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>DOM 事件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .class1 {
+            background-color: orange;
+            color: white;
+            height: 30px;
+            margin-bottom: 20px;
+        }
+
+        .class2 {
+            background-color: orange;
+            width: 800px;
+            height: 800px;
+            display: flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .class2 div {
+            background-color: red;
+            width: 600px;
+            height: 600px;
+            color: white;
+            display: flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+    </style>
 </head>
 <body>
+
+<!--绑定事件的第 1 种写法-->
+<div id="div1" class="class1" onclick="this.innerHTML = 'onclick';">
+    i am a div
+</div>
+
+<div id="div2" class="class2">
+    <div id="div3">
+        i am a div
+    </div>
+</div>
+
+<script>
+    let div1 = document.querySelector("#div1");
+    // 绑定事件的第 2 种写法
+    div1.onmouseover = () => {
+        div1.innerHTML = "onmouseover";
+    };
+    // 绑定事件的第 3 种写法
+    // 通过 addEventListener() 可以为指定的事件绑定指定的监听器（并且支持为一种事件绑定多个不同的监听器）。注：这里指定的事件是不用加“on”的
+    // 通过 removeEventListener() 可以解绑事件
+    div1.addEventListener("mouseout", div1_click_1);
+    div1.addEventListener("mouseout", div1_click_2);
+    // div1.removeEventListener("mouseout", div1_click_1);
+    // div1.removeEventListener("mouseout", div1_click_2);
+    function div1_click_1() {
+        div1.innerHTML = "onmouseout(div1_click_1)";
+    }
+    function div1_click_2() {
+        div1.innerHTML += "onmouseout(div1_click_2)";
+    }
+
+
+
+    let div2 = document.querySelector("#div2");
+    let div3 = document.querySelector("#div3");
+    div2.addEventListener("click", div2_click);
+    div3.addEventListener("click", div3_click_1);
+    div3.addEventListener("click", div3_click_2);
+
+    // div2 被点击，或者 div3 被点击之后冒泡过来
+    // 如果点击了 div3，并在 div3 的点击监听器中调用了 event.stopPropagation() 或 event.stopImmediatePropagation()，则不会执行到这里
+    function div2_click(event) {
+        // 如果事件是冒泡过来的话，可以通过 event.target 获取触发此事件的元素
+        div3.innerHTML += `div2_click, this.id:${this.id}, event.target:${event.target.id}<br />`;
+        // 注: offsetX, offsetY 指的是相对于 event.target 的位置
+        div3.innerHTML += `div2_click, offsetX:${event.offsetX}, offsetY:${event.offsetY}<br />`;
+    }
+
+    // div3 被点击
+    function div3_click_1(event) {
+        div3.innerHTML = "div3_click_1<br />";
+        // offsetX, offsetY - 点击位置相对于 触发此事件的元素 的位置
+        div3.innerHTML += `offsetX:${event.offsetX}, offsetY:${event.offsetY}<br />`;
+        // pageX, pageY - 点击位置相对于 整个文档 的位置（不会随滚动条的滚动而变化）
+        div3.innerHTML += `pageX:${event.pageX}, pageY:${event.pageY}<br />`;
+        // clientX, clientY - 点击位置相对于 文档可视区 的位置（会随滚动条的滚动而变化）
+        div3.innerHTML += `clientX:${event.clientX}, clientY:${event.clientY}<br />`;
+        // screenX, screenY - 点击位置相对于 屏幕 的位置
+        div3.innerHTML += `screenX:${event.screenX}, screenY:${event.screenY}<br />`;
+        // ctrlKey, altKey, shiftKey - 是否按下了 ctrl, alt, shift 键
+        div3.innerHTML += `ctrlKey:${event.ctrlKey}, altKey:${event.altKey}, shiftKey:${event.shiftKey}<br />`;
+
+        // 禁止冒泡
+        // event.stopPropagation();
+
+        // 禁止冒泡，并禁止同事件的后续监听器
+        // event.stopImmediatePropagation();
+    }
+
+    // div3 被点击
+    function div3_click_2(event) {
+        // 如果点击了 div3，并在 div3 的之前的点击监听器中调用了 event.stopImmediatePropagation()，则不会执行到这里
+        div3.innerHTML += "div3_click_2<br />";
+    }
+
+
+
+    // 监听键盘的按下事件
+    document.onkeydown = (event) => {
+        // 获取按键的 key 和 code
+        alert(`onkeydown, key:${event.key}, code:${event.code}`);
+    }
+
+</script>
 
 </body>
 </html>

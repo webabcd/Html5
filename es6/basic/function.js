@@ -40,15 +40,20 @@ console.log(`${c()}, ${d("hello", "webabcd")}, ${e("hello")}, ${f("hello").conte
 
 
 // 关于 lambda 表达式的 this 请参见如下示例
-// 但是如果用 rollup 编译的话，会用 undefined 替换掉 this
+// 但是如果用 rollup 编译的话，其会用 undefined 替换掉 lambda 表达式的 this
 /*
 var name = "wanglei";
 let h = {
     name: "webabcd",
     hello: () => {
-        // 这里的 this 指向的是 window
+        // 这里的 this 指向的是 window 对象
         return this.name; // 返回的是 wanglei
+    },
+    hello2: function() {
+        // 这里的 this 指向的是 h 对象
+        return this.name; // 返回的是 webabcd
     }
 };
 console.log(h.hello()); // wanglei
+console.log(h.hello2()); // webabcd
 */
