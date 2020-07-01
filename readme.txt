@@ -14,8 +14,8 @@ npm install --save @babel/polyfill
 
 04、模块说明
 rollup: 支持 es6 模块，支持 tree-shaking
-babel-present-env: 转换 es6 的新语法，如箭头函数等；但不转换 es6 的新 api，如 Array.include() 等
-babel-polyfill: 转换 es6 的新 api 以及兼容不同浏览器
+babel-present-env: 转换 es6 的新语法，如箭头函数等。但是不会转换 es6 的新 api，如 Array.include() 等
+babel-polyfill: 转换 es6 的新 api（比如：Array.include() 等）以及兼容不同浏览器
 
 
 05、命令说明
@@ -68,7 +68,7 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
 }
 
 
-07、配置说明（babel.config.json）
+08、配置说明（babel.config.json）
 {
   "presets": [
     [
@@ -89,8 +89,21 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
   ]
 }
 
-08、其它
+09、配置说明（.editorconfig）
+root = true
+[*]
+indent_style = space                # 缩进符
+indent_size = 2                     # 缩进时使用 2 个 indent_style 指定的缩进符（本例的缩进就是 2 个空格）
+end_of_line = lf                    # 换行符（win用crlf, linux/unix用lf, mac用cr）。另外：在 win 下只用 lf 也是可以的
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+99、其它
 npm i --save-dev postcss-cli
 npm install
 // https://www.cnblogs.com/tugenhua0707/p/8179686.html
 // https://segmentfault.com/a/1190000010628352
+package-lock.json 用于保存当前项目需要用到的各种模块，各种模块的源代码会保存在 node_modules 文件夹
+
+.editorconfig 的作用

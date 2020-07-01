@@ -1,0 +1,11 @@
+# editorconfig.org - unify code style
+# plugins for text editors: editorconfig.org/#download
+root = true
+
+[*]
+indent_style = space                # 缩进符
+indent_size = 2                     # 缩进时使用 2 个 indent_style 指定的缩进符（本例的缩进就是 2 个空格）
+end_of_line = lf                    # 换行符（win用crlf, linux/unix用lf, mac用cr）。另外：在 win 下只用 lf 也是可以的
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
