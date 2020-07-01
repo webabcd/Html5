@@ -16,6 +16,7 @@ npm install --save @babel/polyfill
 rollup: 支持 es6 模块，支持 tree-shaking
 babel-present-env: 转换 es6 的新语法，如箭头函数等。但是不会转换 es6 的新 api，如 Array.include() 等
 babel-polyfill: 转换 es6 的新 api（比如：Array.include() 等）以及兼容不同浏览器
+uglify-js: 压缩 js 或 css（参见 build/minify.js 脚本，其用于通过 uglify-js 压缩代码，通过 node build/minify.js 执行）
 
 
 05、命令说明
@@ -36,7 +37,10 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
     // 可以通过 npm run build 来运行
     // -c 通过配置文件打包（config）
     // -w 监控文件的变化，实时打包（watch）
-    "build": "rollup -c -w"
+    "build": "rollup -c -w",
+    // 可以通过 npm run minify 来运行
+    // 通过 build/minify.js 脚本压缩代码
+    "minify": "node build/minify.js"
   },
   // dependencies 是生产环境
   "dependencies": {
@@ -47,7 +51,8 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
-    "rollup-plugin-babel": "^4.4.0"
+    "rollup-plugin-babel": "^4.4.0",
+    "uglify-js": "^3.6.0"
   }
 }
 
