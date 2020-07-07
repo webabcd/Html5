@@ -10,13 +10,20 @@ npm i rollup -g
 npm install rollup-plugin-babel --save-dev
 npm install --save-dev @babel/core @babel/cli @babel/preset-env
 npm install --save @babel/polyfill
+npm install @rollup/plugin-node-resolve --save-dev
+npm install --save-dev rollup-plugin-commonjs
+npm install uglify-js --save-dev
+注：配置好 package.json 后，执行 npm install 就都安装了，不用一个一个地安装
 
 
 04、模块说明
 rollup: 支持 es6 模块，支持 tree-shaking
 babel-present-env: 转换 es6 的新语法，如箭头函数等。但是不会转换 es6 的新 api，如 Array.include() 等
 babel-polyfill: 转换 es6 的新 api（比如：Array.include() 等）以及兼容不同浏览器
+    babel-polyfill 的核心是 core-js，core-js 是 commonjs 的，需要使用 rollup-plugin-commonjs 将 commonjs 转换为 es6
 uglify-js: 压缩 js 或 css（参见 build/minify.js 脚本，其用于通过 uglify-js 压缩代码，通过 node build/minify.js 执行）
+@rollup/plugin-node-resolve: 用于解决类似 “Unresolved dependencies”, “Treating [module] as external dependency” 之类的错误
+rollup-plugin-commonjs: 用于将 commonjs 转换为 es6
 
 
 05、命令说明
@@ -25,8 +32,9 @@ i 是 install 的简写
 -g 是 --global 的简写
 -S 是 --save 的简写
 -D 是 --save-dev 的简写
-npm i module-name -save 自动把模块和版本号添加到 dependencies 部分
-npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies 部分
+npm install -g 用于全局安装
+npm install module-name -save 会自动把模块和版本号添加到 dependencies 部分
+npm install module-name -save-dev 会自动把模块和版本号添加到 devDependencies 部分
 
 
 06、配置说明（package.json）
@@ -44,14 +52,17 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
   },
   // dependencies 是生产环境
   "dependencies": {
-    "@babel/polyfill": "^7.8.7"
+    "@babel/polyfill": "^7.8.7",
+    "core-js": "^3.6.5"
   },
   // devDependencies 是开发环境（像 webpack, babel 这种负责打包编译的，我们就应该装在开发环境）
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-node-resolve": "^8.1.0",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
     "uglify-js": "^3.6.0"
   }
 }
@@ -65,36 +76,22 @@ npm i module-name -save-dev 自动把模块和版本号添加到 devDependencies
       "@babel/env",
       {
         "modules": false, // 不将 es6 module 转为 CommonJs
-        "useBuiltIns": "usage", // 用到 es6 新 api 时，自动使用 babel-polyfill
-        "corejs": "3" // 使用 core-js 3 版本，不加这个编译会有警告
-      }
-    ]
-  ]
-}
-
-
-08、配置说明（babel.config.json）
-{
-  "presets": [
-    [
-      "@babel/env",
-      {
         "targets": {
           "edge": "17",
           "firefox": "60",
           "chrome": "67",
           "safari": "11.1",
-          "ie": "11",
-          "android": "4",
-          "ios": "10",
+          "ie": "11"
         }, // 指定转换后的 js 可以支持各浏览器或系统的最低版本
-        "useBuiltIns": "usage" // 用到 es6 新 api 时，自动使用 babel-polyfill
+        "useBuiltIns": "usage", // 用到 es6 新 api 时，自动使用 babel-polyfill
+        "corejs": "3" // 使用 core-js 3 版本
       }
     ]
   ]
 }
 
-09、配置说明（.editorconfig）
+
+08、配置说明（.editorconfig）
 root = true
 [*]
 indent_style = space                # 缩进符
@@ -103,6 +100,11 @@ end_of_line = lf                    # 换行符（win用crlf, linux/unix用lf, m
 charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
+
+
+
+
+
 
 99、其它
 npm i --save-dev postcss-cli

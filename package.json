@@ -2,17 +2,21 @@
   "name": "Html5",
   "version": "1.0.0",
   "scripts": {
+    "build:js": "rollup -c",
     "build": "rollup -c -w",
     "minify": "node build/minify.js"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.8.7"
+    "@babel/polyfill": "^7.8.7",
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-node-resolve": "^8.1.0",
     "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
     "uglify-js": "^3.6.0"
   }
 }
