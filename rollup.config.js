@@ -9,7 +9,7 @@ export default {
         format: 'iife'
     },
     plugins: [
-        // 用于解决类似 “Unresolved dependencies”, “Treating [module] as external dependency” 之类的错误
+        // 用于解决类似 “Unresolved dependencies” 之类的警告
         nodeResolve(),
         // 用于将 commonjs 转换为 es6
         commonjs({
