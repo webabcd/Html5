@@ -13,7 +13,10 @@ npm install --save @babel/polyfill
 npm install @rollup/plugin-node-resolve --save-dev
 npm install --save-dev rollup-plugin-commonjs
 npm install uglify-js --save-dev
-注：配置好 package.json 后，执行 npm install 就都安装了，不用一个一个地安装
+npm install @rollup/plugin-json --save-dev
+npm install --save-dev rollup-plugin-postcss
+npm install --save-dev autoprefixer
+注：上面这些除了 npm i rollup -g 需要手动安装外，其他的模块配置好 package.json 后，执行 npm install 就都安装了，不用一个一个地安装
 
 
 04、模块说明
@@ -24,6 +27,8 @@ babel-polyfill: 转换 es6 的新 api（比如：Array.include() 等）以及兼
 uglify-js: 压缩 js 或 css（参见 build/minify.js 脚本，其用于通过 uglify-js 压缩代码，通过 node build/minify.js 执行）
 @rollup/plugin-node-resolve: 用于解决类似 Unresolved dependencies 或者 'xxx' is imported by ***.js, but could not be resolved – treating it as an external dependency 之类的警告
 rollup-plugin-commonjs: 用于将 commonjs 转换为 es6
+rollup-plugin-postcss: 编译 css 用的
+autoprefixer: 是 postcss 的插件，用于自动添加 -webkit-, -ms- 之类的前缀
 
 
 05、命令说明
@@ -61,10 +66,20 @@ npm install module-name -save-dev 会自动把模块和版本号添加到 devDep
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "autoprefixer": "^9.8.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-postcss": "^3.1.2",
     "uglify-js": "^3.6.0"
-  }
+  },
+  // postcss 会读取此配置，以便生成符合条件的代码
+  "browserslist": [
+    "defaults",         // 默认值（> 0.5%, last 2 versions, Firefox ESR, not dead）
+    "> 1%",             // 全球超过 1% 人使用的浏览器
+    "last 2 versions",  // 所有浏览器兼容到最后两个版本
+    "not ie <= 9",      // IE 浏览器版本大于 9
+    "safari >= 7"       // safari 浏览器版本大于等于 7
+  ]
 }
 
 

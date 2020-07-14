@@ -2,8 +2,8 @@
   "name": "Html5",
   "version": "1.0.0",
   "scripts": {
-    "build:js": "rollup -c",
-    "build": "rollup -c -w",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
     "minify": "node build/minify.js"
   },
   "dependencies": {
@@ -14,9 +14,19 @@
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
+    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
+    "autoprefixer": "^9.8.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-postcss": "^3.1.2",
     "uglify-js": "^3.6.0"
-  }
+  },
+  "browserslist": [
+    "defaults",
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 9",
+    "safari >= 7"
+  ]
 }

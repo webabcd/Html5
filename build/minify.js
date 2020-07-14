@@ -39,5 +39,5 @@ const minify = (file, dest) => {
 };
 
 console.log('compress files start');
-minify('dist/main.js', 'dist/main.min.js');
+minify('dist/index.js', 'dist/index.min.js');
 console.log('compress files end');
