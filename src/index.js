@@ -1,7 +1,7 @@
 // export * from './setTimeout'
 // export * from './XMLHttpRequest'
 
-export * from '../es6/basic/string'
+export * from '../es6/basic/null_undefined'
 
 
 

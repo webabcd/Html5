@@ -28,3 +28,8 @@ let d = () => {
 
 };
 console.log(d());  // undefined
+
+
+// 判断是否是 undefined
+let e = { };
+console.log(e.x === undefined, typeof e.x == 'undefined');  // true true
