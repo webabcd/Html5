@@ -16,6 +16,7 @@ npm install uglify-js --save-dev
 npm install @rollup/plugin-json --save-dev
 npm install --save-dev rollup-plugin-postcss
 npm install --save-dev autoprefixer
+npm install --save core-js@^3
 注：上面这些除了 npm i rollup -g 需要手动安装外，其他的模块配置好 package.json 后，执行 npm install 就都安装了，不用一个一个地安装
 
 
