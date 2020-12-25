@@ -85,6 +85,7 @@ npm install module-name -save-dev 会自动把模块和版本号添加到 devDep
 
 
 07、配置说明（.babelrc）
+这部分也是可以在 rollup.config.js 中的 plugins 的 babel 中直接配置的，但是那样编译时会出现“Circular dependencies”警告，不知道为啥
 .babelrc 中的 rc 的意思是命令脚本（因为早期的 unix 中的 runcom 是命令脚本）
 {
   "presets": [
