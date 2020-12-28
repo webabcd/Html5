@@ -18,7 +18,7 @@ export default {
         nodeResolve(),
         // 用于将 json 转换为 es6
         json(),
-        // 用于将 commonjs 转换为 es6
+        // 用于将 commonjs 转换为 es6（比如，如果你的代码中有 require 的话，那么这是不能在浏览器中运行的，此时就可以用这个插件可转换一下）
         commonjs({
             sourceMap: false // 不用生成源映射（源映射用于保存源代码与编译后代码的映射关系，从而方便定位代码）
         }),
