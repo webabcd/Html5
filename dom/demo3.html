@@ -107,6 +107,12 @@
 
         // 禁止冒泡，并禁止同事件的后续监听器
         // event.stopImmediatePropagation();
+
+        /*
+         * preventDefault() - 用于阻止默认的点击事件执行（比如，通过此方法可以阻止点击后选中复选框）
+         * stopImmediatePropagation() - 阻止监听同一事件的其他事件监听器被调用
+         * stopPropagation() - 阻止当前事件捕获和冒泡
+         */
     }
 
     // div3 被点击
