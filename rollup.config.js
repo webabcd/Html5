@@ -30,8 +30,8 @@ export default {
         // 注：input 的 js 文件中的 import 的 css 会被此处的 postcss 编译
         postcss({
             plugins: [autoprefixer], // 启用 postcss 的 autoprefixer 插件
-            minimize: true, // 压缩 css
-            extract: pathResolve(__dirname, `./dist/css.min.css`) // 编译后的 css 的保存路径
+            minimize: false, // 是否压缩 css
+            extract: pathResolve(__dirname, `./dist/css.css`) // 编译后的 css 的保存路径
         })
     ]
 }

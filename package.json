@@ -4,7 +4,8 @@
   "scripts": {
     "build": "rollup -c",
     "start": "rollup -c -w",
-    "minify": "node build/minify.js"
+    "minify": "node build/minify.js",
+    "h5": "node build/h5.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",

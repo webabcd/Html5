@@ -17,7 +17,7 @@ const options = {
     unused: true,
     if_return: true,
     join_vars: true,
-    drop_console: true,
+    drop_console: false,
     typeofs: false
   }
 };
