@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>localStorage 和 sessionStorage</title>
+</head>
+<body>
+
+<div id='divMsg'></div>
+
+<script>
+
+    // localStorage - 当前浏览器永久有效
+    // sessionStorage - 当前浏览器的当前标签页有效，关了则清空
+    // 不同域名使用不同的存储空间（相同域名指的是：协议，域名，端口均相同）
+    // 存储空间的大小是有限制的，不同浏览器的大小限制不一样（2MB 以内肯定都是没问题的）
+    // 存储保存的是 key/value 数据，且 key 和 value 都必须是字符串类型
+    // 本例以 localStorage 为例做说明，sessionStorage 的用法是一样的，就不写了
+
+    // localStorage 的保存和读取 key/value 的方法
+    window.localStorage.setItem("key1", "value1");
+    localStorage.key2 = "value2";
+    writeMessage(localStorage.key1);
+    writeMessage(localStorage.getItem("key2"));
+
+    // localStorage.length - 数据条数
+    // localStorage.key(index) - 指定索引位置的 key 值
+    writeMessage("localStorage 数据条数" + localStorage.length);
+    for (let i = 0; i < localStorage.length; i++) {
+        writeMessage(`第 ${i + 1} 条数据的 key 为: ${localStorage.key(i)}, value 为: ${localStorage.getItem(localStorage.key(i))}`);
+    }
+
+    // 删除指定 key 的数据
+    // localStorage.removeItem(key);
+    // 删除全部数据
+    // localStorage.clear();
+
+    function writeMessage(message) {
+        var divMsg = document.getElementById("divMsg");
+        divMsg.innerHTML += message;
+        divMsg.innerHTML += "<br />";
+    }
+
+</script>
+
+</body>
+</html>
