@@ -13,7 +13,7 @@
     // localStorage - 当前浏览器永久有效
     // sessionStorage - 当前浏览器的当前标签页有效，关了则清空
     // 不同域名使用不同的存储空间（相同域名指的是：协议，域名，端口均相同）
-    // 存储空间的大小是有限制的，不同浏览器的大小限制不一样（2MB 以内肯定都是没问题的）
+    // 存储空间的大小是有限制的，不同浏览器的大小限制不一样
     // 存储保存的是 key/value 数据，且 key 和 value 都必须是字符串类型
     // 本例以 localStorage 为例做说明，sessionStorage 的用法是一样的，就不写了
 
@@ -34,6 +34,18 @@
     // localStorage.removeItem(key);
     // 删除全部数据
     // localStorage.clear();
+
+    // 获取可用的存储空间的大小（此值是一个保守的近似值，且不是所有浏览器都支持）
+    //     estimate.usage - 已用大小（单位：字节）
+    //     estimate.quota - 总大小（单位：字节）
+    // 注：这个存储空间的大小包括 localStorage, sessionStorage, IndexedDB, Service Worker 等
+    if ('storage' in navigator && 'estimate' in navigator.storage) {
+        navigator.storage.estimate().then(function(estimate) {
+            writeMessage(`estimate.usage: ${estimate.usage},  quota: ${estimate.quota}`);
+        });
+    } else {
+        writeMessage("不支持 navigator.storage.estimate()");
+    }
 
     function writeMessage(message) {
         var divMsg = document.getElementById("divMsg");
