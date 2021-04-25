@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "rollup -c",
-    "start": "rollup -c -w",
+    "watch": "rollup -c -w",
     "minify": "node build/minify.js",
     "h5": "node build/h5.js"
   },
