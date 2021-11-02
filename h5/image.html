@@ -20,7 +20,9 @@
         reader.readAsDataURL(file);
         reader.onload = function (e) {
             let divImage = document.getElementById("divImage");
-            divImage.innerHTML = "<img src=\"" + this.result + "\" />";
+            let base64 = this.result;
+            console.log(base64);
+            divImage.innerHTML = "<img src=\"" + base64 + "\" />";
         }
     }
 </script>

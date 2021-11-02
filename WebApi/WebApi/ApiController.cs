@@ -13,10 +13,10 @@ namespace WebApi
 {
   public class ApiController : Controller
   {
-    [Route("test")]
-    public IActionResult Test()
+    [Route("hello")]
+    public IActionResult Hello()
     {
-      return Content("post", "text/plain", Encoding.UTF8);
+      return Content("hello webabcd", "text/plain", Encoding.UTF8);
     }
 
     [Route("get_long")]
@@ -52,6 +52,15 @@ namespace WebApi
     public IActionResult Redirect()
     {
       return Redirect("https://www.cnblogs.com/webabcd/");
+    }
+
+    [Route("fetch")]
+    public IActionResult Fetch()
+    {
+      Response.Headers.Add("Access-Control-Allow-Origin", "*");
+      Response.Headers.Add("Access-Control-Allow-Headers", "*");
+
+      return Content("{ \"name\": \"webabcd\" }", "application/json", Encoding.UTF8);
     }
   }
 }
