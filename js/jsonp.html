@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>jsonp</title>
 </head>
 <body>
 
 <script>
 
-    function callback(data) {
+    function showToast(data) {
         alert(data);
     }
 
@@ -20,7 +20,7 @@
     }
 
     window.onload = function() {
-        addScript('http://localhost:42858/jsonp');
+        addScript('http://localhost:42858/jsonp?jsoncallback=showToast');
     }
 
 </script>

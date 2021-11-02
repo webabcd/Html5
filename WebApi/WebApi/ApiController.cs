@@ -43,9 +43,9 @@ namespace WebApi
     }
 
     [Route("jsonp")]
-    public IActionResult Jsonp()
+    public IActionResult Jsonp(string jsoncallback)
     {
-      return Content("callback('hello jsonp');", "text/plain", Encoding.UTF8);
+      return Content(jsoncallback + "('hello jsonp');", "text/plain", Encoding.UTF8);
     }
 
     [Route("redirect")]
