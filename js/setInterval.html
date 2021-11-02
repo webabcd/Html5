@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setInterval</title>
+</head>
+<body>
+<script>
+
+    let a1 = 0;
+    let b1 = -1;
+    let hello1 = () => {
+        console.log(`hello1:${Math.floor(new Date().getTime() / 1000)}`);
+        a1++;
+        if (a1 > 2) {
+            clearTimeout(b1);
+        }
+    };
+    // 启动定时器，每间隔 1000 毫秒执行一次 hello1() 函数（注：这么调用不会立即执行 hello1() 函数，而是在 1000 毫秒之后第一次执行）
+    // 返回值为此定时器的标识，调用 clearTimeout() 时指定此标识可以停止此计时器
+    b1 = setInterval(hello1, 1000);
+
+
+    let a2 = 0;
+    let b2 = -1;
+    let hello2 = name => {
+        console.log(`hello2:${name}, ${Math.floor(new Date().getTime() / 1000)}`);
+        a2++;
+        if (a2 > 2) {
+            clearTimeout(b2);
+        }
+    };
+    // 为定时器调用的函数传递参数的写法
+    b2 = setInterval(() => { hello2("webabcd") }, 1000);
+
+
+    let hello3 = () => {
+        console.log(`hello3:${Math.floor(new Date().getTime() / 1000)}`);
+    };
+    // 立即执行 hello3() 函数，然后每间隔 5000 毫秒执行一次 hello3() 函数返回的函数，这里 hello3() 函数没有返回值，所以就没有之后了
+    setInterval(hello3(), 5000);
+
+
+    let hello4 = () => {
+        console.log(`hello4:${Math.floor(new Date().getTime() / 1000)}`);
+        return hello4;
+    };
+    // 立即执行 hello4() 函数，然后每间隔 5000 毫秒执行一次 hello4() 函数返回的函数，也就是说之后每间隔 5000 毫秒会执行一次 hello4() 函数
+    // 用此方式即可实现调用 setInterval() 之后立即执行指定函数的需求
+    setInterval(hello4(), 5000);
+
+</script>
+</body>
+</html>
