@@ -139,6 +139,7 @@
 
 
     // visibilitychange - 当浏览器的某个标签页切换到后台，或从后台切换到前台时会触发此事件
+    // 注：页面首次加载时是不会走到此事件的
     document.addEventListener("visibilitychange", () => {
         if (document.hidden) {
             console.log('页面到后台了 ' + new Date().getTime());
