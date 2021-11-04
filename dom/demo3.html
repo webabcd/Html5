@@ -127,7 +127,28 @@
     document.onkeydown = (event) => {
         // 获取按键的 key 和 code
         alert(`onkeydown, key:${event.key}, code:${event.code}`);
-    }
+    };
+
+
+
+    // 判断当前浏览器是否支持某个事件
+    // 是否支持 onkeydown 事件
+    var support_keydown = 'onkeydown' in window;
+    // 是否支持 onvisibilitychange 事件
+    var support_visibilitychange = 'onvisibilitychange' in window;
+    alert("support_keydown:" + support_keydown + ", support_visibilitychange:" + support_visibilitychange);
+
+
+
+    // visibilitychange - 当浏览器的某个标签页切换到后台，或从后台切换到前台时会触发此事件（电脑版浏览器一般都不支持此事件，手机版浏览器一般都支持此事件）
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) {
+            // 页面到后台了
+        }
+        else {
+            // 页面到前台了
+        }
+    });
 
 </script>
 
