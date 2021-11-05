@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>px/em/pt</title>
+</head>
+<body>
+
+<div>
+    <!--
+        px(pixel) 就是像素的意思
+        9pt 等于 12px（不用管 pt 是啥意思了，基本都不用它了）
+    -->
+    <div style="font-size: 9pt">abcdefg</div>
+    <div style="font-size: 12px">abcdefg</div>
+</div>
+
+<div>
+    <!--
+        em 是相对大小，相对于父元素的 font-size 的大小（如果父元素是 16px，那么子元素的 1.5em 就是 24px）
+        如果父元素的 font-size 是 16px（一般浏览器的 font-size 的默认大小就是 16px），那么 1em 就是 16px
+    -->
+    <div style="font-size: 16px">abcdefg</div>
+    <div style="font-size: 1em">abcdefg</div>
+    <div style="font-size: 1.5em">abcdefg</div>
+</div>
+
+<div style="font-size: 32px">
+    <!--
+        font-size 是会被继承的，下面的 div 的 font-size 也是 32px
+    -->
+    <div>abcdefg</div>
+    <!--
+        下面的 div 的 font-size 是 32px
+    -->
+    <div style="font-size: 1em">abcdefg</div>
+    <!--
+        下面的 div 的 font-size 是 48px
+    -->
+    <div style="font-size: 1.5em">abcdefg</div>
+</div>
+
+<!--
+    注：
+    1、首先 font-size 是会被继承的
+    2、如果为元素指定了 px 那么它和它的子辈的实际大小就是你指定的那么大，它们不会受浏览器设置里的字号大小的影响
+    3、如果元素以及长辈都没有指定 px 那么他们的实际大小就会受浏览器设置里的字号大小的影响
+    4、有个场景，要求子元素的大小与父元素的大小成比例，同时需要受浏览器设置里的字号大小的影响，那么就可以父元素和子元素都用 em 为单位
+-->
+
+</body>
+</html>
