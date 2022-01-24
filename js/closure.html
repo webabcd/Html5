@@ -16,8 +16,8 @@
         return func2;
     }
     var xxx = func1();
-    alert(xxx());
-    alert(xxx());
+    alert(xxx()); // 可以访问 func1 内的局部变量
+    alert(xxx()); // func1 内的局部变量一直在内存中
 
 
     function func3() {
