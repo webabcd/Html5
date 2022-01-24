@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<body>
+
+<script>
+
+    function func1() {
+        var x = 0;
+        function func2() {
+            return ++x;
+        }
+        return func2;
+    }
+    var xxx = func1();
+    alert(xxx());
+    alert(xxx());
+
+
+    function func3() {
+        var x = 0;
+        abc = function () {
+            return ++x;
+        }
+    }
+    var yyy = func3();
+    alert(abc());
+    alert(abc());
+
+</script>
+
+</body>
+</html>
