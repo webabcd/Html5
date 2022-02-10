@@ -59,6 +59,7 @@
     };
     // 绑定事件的第 3 种写法
     // 通过 addEventListener() 可以为指定的事件绑定指定的监听器（并且支持为一种事件绑定多个不同的监听器）。注：这里指定的事件是不用加“on”的
+    // 注：addEventListener() 还有第 3 个参数，其默认是 false（事件流是冒泡的方式，即从里到外），需要的话可以传 true（事件流是捕获的方式，即从外到里）
     // 通过 removeEventListener() 可以解绑事件
     div1.addEventListener("mouseout", div1_click_1);
     div1.addEventListener("mouseout", div1_click_2);
@@ -102,16 +103,10 @@
         // ctrlKey, altKey, shiftKey - 是否按下了 ctrl, alt, shift 键
         div3.innerHTML += `ctrlKey:${event.ctrlKey}, altKey:${event.altKey}, shiftKey:${event.shiftKey}<br />`;
 
-        // 禁止冒泡
-        // event.stopPropagation();
-
-        // 禁止冒泡，并禁止同事件的后续监听器
-        // event.stopImmediatePropagation();
-
         /*
-         * preventDefault() - 用于阻止默认的点击事件执行（比如，通过此方法可以阻止点击后选中复选框）
-         * stopImmediatePropagation() - 阻止监听同一事件的其他事件监听器被调用
-         * stopPropagation() - 阻止当前事件捕获和冒泡
+         * event.preventDefault() - 阻止当前事件的默认行为（比如，通过此方法可以阻止点击后选中复选框）
+         * event.stopImmediatePropagation() - 阻止当前事件的冒泡和捕获，并阻止同事件的其他事件监听器被调用
+         * event.stopPropagation() - 阻止当前事件的冒泡和捕获
          */
     }
 
