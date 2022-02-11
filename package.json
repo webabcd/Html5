@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
-    "core-js": "^3.6.5"
+    "core-js": "^3.6.5",
+    "vue": "^3.2.29"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",

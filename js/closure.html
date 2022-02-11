@@ -8,27 +8,39 @@
 
 <script>
 
+    // 函数内的函数就是一个闭包（closure）
     function func1() {
+        // 闭包外的变量
         var x = 0;
+
         function func2() {
             return ++x;
         }
+        // 返回一个闭包
         return func2;
     }
-    var xxx = func1();
-    alert(xxx()); // 可以访问 func1 内的局部变量
-    alert(xxx()); // func1 内的局部变量一直在内存中
+    // 获取一个闭包
+    var c = func1();
+    // 闭包引用的闭包外的变量的生命周期会拉长到与闭包一致
+    // c 是 func2，但是由于 c 是一个闭包，所以他的外部变量 x 的生命周期会拉长到与闭包一致
+    // 也就是说 c 可以访问 x，只要 c 不死 x 就不死
+    console.log(c());
+    console.log(c());
+    console.log(c());
 
 
     function func3() {
-        var x = 0;
-        abc = function () {
+        var x = 100;
+        // func4 是一个闭包
+        func4 = function () {
             return ++x;
         }
     }
-    var yyy = func3();
-    alert(abc());
-    alert(abc());
+    // 调用 func3 后，你就可以使用 func4 了
+    func3();
+    console.log(func4());
+    console.log(func4());
+    console.log(func4());
 
 </script>
 
