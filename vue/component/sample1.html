@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 组件 1</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+    <!--
+        webabcd-button 是自定义组件（自定义组件的名称建议全部小写，或使用 kebab-case 命名方式）
+    -->
+    <webabcd-button prop1="v1" prop2="v2" @my-event="hi($event)" v-model="myData" :name="item.name" :age="item.age" v-for="item in myArray">click me</webabcd-button>
+</div>
+
+<script>
+
+    // 常用的命名方法有 PascalCase, camelCase, kebab-case
+    // HTML attribute 是不区分大小写的，你的 props 和 emits 中的参数的 camelCase 命名方式将会被自动转换为 kebab-case 命名方式后映射到 HTML attribute 上
+
+    // 定义一个自定义组件
+    const component = {
+        data() {
+            return {
+                prop3: "v3"
+            }
+        },
+        methods: {
+            hello(name) {
+                alert("hello: " + name);
+            }
+        },
+        props: ['prop1', 'prop2', 'name', 'age', 'modelValue'],
+        emits: ['myEvent', 'update:modelValue'],
+        // 自定义组件的 template
+        // 1、如果你需要在组件的 template 中使用组件元素上定义的 attribute 的话，则需要在 props 中定义 attribute 的名字
+        // 2、如果你需要在组件的 template 中使用组件元素的内容，比如要使用 <webabcd-button>我是元素的内容</webabcd-button> 的话，则通过 <slot></slot> 代替
+        // 3、如果你需要在组件的 template 中抛出事件，并且组件元素可以监听此事件的话
+        //    a) 在 template 中定义 @click="$emit('myEvent', 'wanglei')" 用于抛出事件，第 2 个参数是可选参数（注：也可以在组件的 methods 中通过 this.$emit() 抛出事件）
+        //    b) 在 emits 中增加 myEvent'
+        //    c) 在组件元素上通过 @my-event="xxx($event)" 监听事件，其中的 $event 就是调用 $emit() 时传递的第 2 个参数
+        // 4、如果你需要在组件的 template 中使用组件元素中定义的 v-model 的话
+        //    a) 在 template 中定义 :value="modelValue"
+        //    b) 在 props 中增加 'modelValue'
+        //    c) 在 emits 中增加 'update:modelValue'
+        template: `
+            prop1:{{ prop1 }}, prop2:{{ prop2 }}, prop3:{{ prop3 }}, name:{{ name }}, age:{{ age }}
+            <br>
+            <button @click="hello('webabcd')">
+                <slot></slot>
+            </button>
+            <br>
+            <button @click="$emit('myEvent', 'wanglei')">
+                <slot></slot>
+            </button>
+            <br>
+            <input :value="modelValue" @input="$emit('update:modelValue', $event.target.value)">
+            <br>`
+    };
+
+    // 创建一个 vue 实例（需要指定根组件选项）
+    const app = Vue.createApp({
+        data() {
+            return {
+                myData: "abc",
+                myArray: [
+                    { name: 'aaa', age: 10 },
+                    { name: 'bbb', age: 20 },
+                    { name: 'ccc', age: 30 },
+                ]
+            }
+        },
+        methods: {
+            hi(name) {
+                alert("hi: " + name);
+            }
+        }
+    });
+
+    // 注册一个名为 webabcd-button 的自定义组件（这种方式注册的是全局组件）
+    app.component('webabcd-button', component);
+
+    // 挂载指定的 html 节点（此节点将被 vue 渲染），并返回根组件的实例
+    app.mount("#root");
+
+</script>
+</body>
+</html>

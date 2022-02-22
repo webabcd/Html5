@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 组件 2</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+
+    <button v-for="tab in tabs" @click="currentTab = tab">
+        {{ tab }}
+    </button>
+
+    <!--
+        component - 通过 is 指定当前组件，可以实现动态组件的效果（可以动态的加载你需要的组件）
+        keep-alive - 在 component 外包一层 keep-alive 则会在组件的切换中保存各个组件的状态（默认是不保存的）
+    -->
+    <keep-alive>
+        <component :is="currentTab"></component>
+    </keep-alive>
+
+    <table>
+        <webabcd-tr></webabcd-tr>
+    </table>
+    <!--
+        因为 webabcd-tr 不是 table 内的合法标签，所以上面那样写的结果是不符合预期的
+        需要像下面这样写才可以（tr 是 table 内的合法标签），通过 is="vue:xxx" 来实现（其他的像 select/option, ul/li 之类的也是类似这么写）
+    -->
+    <table>
+        <tr is="vue:webabcd-tr"></tr>
+    </table>
+
+</div>
+
+<script>
+
+    const app = Vue.createApp({
+        data() {
+            return {
+                currentTab: 'tab1',
+                tabs: ['tab1', 'tab2', 'tab3']
+            }
+        },
+        // 注册局部组件，多个同级的局部组件不可以互相使用
+        components: {
+            'tab1': {
+                template: `<input value="我是 tab 1 的内容">`
+            },
+            'tab2': {
+                template: `<input value="我是 tab 2 的内容">`
+            },
+            'tab3': {
+                template: `<input value="我是 tab 3 的内容">`
+            },
+        }
+    });
+
+    // 注册全局组件，多个全局组件可以互相使用
+    app.component('webabcd-tr', {
+        data() {
+            return {
+                myArray: ['item1', 'item2', 'item3']
+            }
+        },
+        template: `
+            <tr v-for="item in myArray">
+                <td>{{ item }}</td>
+            </tr>`
+    });
+
+    app.mount('#root')
+
+
+</script>
+</body>
+</html>

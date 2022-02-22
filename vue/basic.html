@@ -23,7 +23,7 @@
 
 <!--
     下面的 html 介绍了 vue 的模板语法（Template Syntax）的基础，vue.js 会将你的模板语法渲染为最终的 html（也可以称之为编译）
-    vue 是 MVVM（Model-View-ViewModel）模式的，大部分场景是 vm 变了 v 就会变
+    vue 是 MVVM（Model-View-ViewModel）模式的，大部分场景是单向绑定，即 vm 变了 v 就会变
 -->
 
 <!--
@@ -39,6 +39,8 @@
     <div>{{ getMessage() }}</div>
     <!--可以使用简单的表达式-->
     <div>{{ myBool ? myMessage.split('').join(',') : "" }}</div>
+    <!--可以和对象的属性绑定-->
+    <div>{{ myObject.name }} {{ myObject.age }}</div>
 
     <!--指令（directive）方式，就是以下这些在元素上声明 v-xxx 的方式-->
     <!--
@@ -105,6 +107,10 @@
         data() {
             return {
                 myMessage: "hello: vue",
+                myObject: {
+                    name: "wanglei",
+                    age: 40
+                },
                 myStyle: "color: orange",
                 myColor: "red",
                 myClass2: "class2",
