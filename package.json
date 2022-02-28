@@ -5,15 +5,15 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "minify": "node build/minify.js",
-    "h5": "node build/h5.js"
+    "h5": "node build/h5.js",
+    "build:vue": "rollup -c vue/router/rollup.config.js"
   },
   "dependencies": {
     "@babel/polyfill": "^7.8.7",
-    "core-js": "^3.6.5",
-    "vue": "^3.2.29"
+    "core-js": "^3.6.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.17.6",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.5",
     "@rollup/plugin-json": "^4.1.0",
@@ -22,7 +22,11 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-postcss": "^3.1.2",
-    "uglify-js": "^3.6.0"
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "uglify-js": "^3.6.0",
+    "vue": "^3.2.31",
+    "vue-router": "^4.0.12"
   },
   "browserslist": [
     "defaults",

@@ -18,7 +18,9 @@ npm install --save-dev rollup-plugin-postcss
 npm install --save-dev autoprefixer
 npm install --save-dev clean-css-cli
 npm install --save core-js@^3
-npm install vue@next
+npm install --save-dev vue@next
+npm install rollup-plugin-vue --save-dev
+npm install vue-router@4 --save-dev
 注：上面这些除了 npm i rollup -g 需要手动安装外，其他的模块配置好 package.json 后，执行 npm install 就都安装了，不用一个一个地安装
 
 
@@ -33,7 +35,9 @@ rollup-plugin-commonjs: 用于将 commonjs 转换为 es6
 rollup-plugin-postcss: 编译 css 用的
 autoprefixer: 是 postcss 的插件，用于自动添加 -webkit-, -ms- 之类的前缀
 clean-css-cli: 是压缩 css 文件用的（用法示例：cleancss dist/video-js.css -o dist/video-js.min.css）
-vue@next: vue 的最新稳定版
+vue@next: vue
+rollup-plugin-vue: 编译 .vue 文件
+vue-router@4: vue 的路由库
 
 
 05、命令说明
