@@ -21,7 +21,7 @@
     "autoprefixer": "^9.8.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
-    "rollup-plugin-postcss": "^3.1.2",
+    "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-alias": "^2.2.0",
     "rollup-plugin-vue": "^6.0.0",
     "uglify-js": "^3.6.0",
