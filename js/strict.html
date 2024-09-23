@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>严格模式</title>
+</head>
+<body>
+
+<script>
+
+    // 非严格模式可以使用未声明的变量
+    function f1() {
+        a = 10;
+        console.log(a);
+    }
+
+    // 严格模式禁止使用未声明的变量
+    function f2() {
+        "use strict";
+        b = 10; // 这句会报错 Uncaught ReferenceError: b is not defined
+        console.log(b);
+    }
+
+    f1();
+    f2();
+
+    // 注：严格模式除了禁止使用未声明的变量外，还有很多其他的特性，详细的说明自己网上找吧
+
+</script>
+
+</body>
+</html>

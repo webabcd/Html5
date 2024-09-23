@@ -1,0 +1,130 @@
+<!--
+    flex 布局(flex - flexibility 可伸缩性)
+
+    1、在容器上指定 display
+       flex - 容器内的子项使用 flex 布局
+
+    2、在容器上指定 flex-direction（排列方向）。通常在 flex-flow 属性中指定
+       row - 子项水平排列，起点在左端（默认值）
+       row-reverse - 子项水平排列，起点在右端
+       column - 子项垂直排列，起点在顶端
+       column-reverse - 子项垂直排列，起点在底端
+
+    3、在容器上指定 flex-wrap（换行方式）。通常在 flex-flow 属性中指定
+       nowrap - 子项不换行（默认值）
+       wrap - 子项换行，第一行在上方
+       wrap-reverse - 子项换行，第一行在下方
+
+    4、在容器上指定 flex-flow（是 flex-direction 属性和 flex-wrap 属性的简写形式）
+       格式为 <flex-direction> || <flex-wrap>（默认值为 row nowrap）
+       可以两个都指定，也可以只指定其中之一，所以通常就指定此属性即可，而不用分别指定 flex-direction 属性, flex-wrap 属性
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flex-direction, flex-wrap, flex-flow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        .container1 {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+        }
+
+        .container2 {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        .myDiv {
+            width: 300px;
+            color: white;
+            background-color: orange;
+        }
+    </style>
+    <script>
+        window.onload = () => {
+            let radioFlexDirectionList = document.getElementsByName('flexDirection');
+            let radioFlexWrapList = document.getElementsByName('flexWrap');
+            let container1 = document.getElementsByClassName("container1")[0];
+
+            radioFlexDirectionList.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    container1.style.flexDirection = radio.value;
+                })
+            });
+
+            radioFlexWrapList.forEach(radio => {
+                radio.addEventListener('change', () => {
+                    container1.style.flexWrap = radio.value;
+                })
+            });
+        }
+    </script>
+</head>
+<body>
+
+flex-direction:
+<br />
+<input id="radFlexDirection1" type="radio" name="flexDirection" value="row" checked/>
+<label for="radFlexDirection1">row</label>
+<br />
+<input id="radFlexDirection2" type="radio" name="flexDirection" value="row-reverse"/>
+<label for="radFlexDirection2">row-reverse</label>
+<br />
+<input id="radFlexDirection3" type="radio" name="flexDirection" value="column"/>
+<label for="radFlexDirection3">column</label>
+<br />
+<input id="radFlexDirection4" type="radio" name="flexDirection" value="column-reverse"/>
+<label for="radFlexDirection4">column-reverse</label>
+<br />
+<br />
+
+flex-wrap:
+<br />
+<input id="radFlexWrap1" type="radio" name="flexWrap" value="nowrap" checked/>
+<label for="radFlexWrap1">nowrap</label>
+<br />
+<input id="radFlexWrap2" type="radio" name="flexWrap" value="wrap"/>
+<label for="radFlexWrap2">wrap</label>
+<br />
+<input id="radFlexWrap3" type="radio" name="flexWrap" value="wrap-reverse"/>
+<label for="radFlexWrap3">wrap-reverse</label>
+<br />
+<br />
+
+<div class="container1">
+    <div class="myDiv">div1</div>
+    <div class="myDiv">div2</div>
+    <div class="myDiv">div3</div>
+    <div class="myDiv">div4</div>
+    <div class="myDiv">div5</div>
+    <div class="myDiv">div6</div>
+    <div class="myDiv">div7</div>
+    <div class="myDiv">div8</div>
+    <div class="myDiv">div9</div>
+</div>
+
+<br />
+
+<div class="container2">
+    <div class="myDiv">div1</div>
+    <div class="myDiv">div2</div>
+    <div class="myDiv">div3</div>
+    <div class="myDiv">div4</div>
+    <div class="myDiv">div5</div>
+    <div class="myDiv">div6</div>
+    <div class="myDiv">div7</div>
+    <div class="myDiv">div8</div>
+    <div class="myDiv">div9</div>
+</div>
+
+</body>
+</html>

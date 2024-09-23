@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 常用方法和属性</title>
+</head>
+<body>
+
+<div id="result"></div>
+
+<script>
+
+    let result = document.getElementById("result");
+
+    /**
+     * document.title - html 的 title
+     * createElement() - 创建 html 元素
+     * createTextNode() - 创建文本元素
+     * appendChild() - 在最后添加子元素
+     * insertBefore() - 在指定的子元素之前添加子元素
+     * removeChild() - 删除指定的子元素
+     * replaceChild() - 用新的子元素替换已存在的子元素
+     * setAttribute() - 设置属性和属性值
+     * removeAttribute() - 删除指定的属性
+     * innerHTML - 设置元素的 html 值
+     * innerText - 设置元素的 text 值（其中的 html 代码会被转义为文本）
+     */
+    let a = document.createElement("div");
+    let b = document.createTextNode("111");
+    a.appendChild(b);
+    result.appendChild(a);
+
+    let c = document.createElement("div");
+    c.innerHTML = "222<br />333";
+    result.insertBefore(c, a);
+
+    let d = document.createElement("input");
+    d.setAttribute("type", "text");
+    d.setAttribute("value", "我是 input");
+    result.append(d);
+
+    /**
+     * hasChildNodes() - 是否有子节点，包括 html 元素和文本元素
+     * childNodes() - 获取全部子节点，包括 html 元素和文本元素
+     * parentElement - 父 html 元素
+     * firstElementChild - 第一个 html 子元素
+     * lastElementChild - 最后一个 html 子元素
+     * nextElementSibling - 同级的下一个 html 元素
+     * previousElementSibling - 同级的上一个 html 元素
+     * parentNode - 父节点
+     * firstChild - 第一个子节点（html 元素或文本元素）
+     * lastChild - 最后一个子节点（html 元素或文本元素）
+     * nextSibling - 同级的下一个节点（html 元素或文本元素）
+     * previousSibling - 同级的上一个节点（html 元素或文本元素）
+     */
+    console.log(result.hasChildNodes(), result.childNodes.length, result.childNodes[0].innerHTML); // true 3 "222<br>333"
+    console.log(result.firstElementChild.innerHTML, result.lastElementChild.outerHTML); // 222<br>333 <input type="text" value="我是 input">
+    console.log(c.nextElementSibling.innerHTML, a.previousElementSibling.innerHTML); // 111 222<br>333
+    console.log(c.childNodes.length, c.firstChild.nodeValue, c.childNodes[1].outerHTML, c.lastChild.nodeValue); // 3 "222" "<br>" "333"
+
+    /**
+     * innerHTML - 获取元素内的 html 代码
+     * innerText - 获取元素内的文本代码
+     * outerHTML - 获取整个元素的 html 代码
+     */
+    console.log(c.innerHTML); // 222<br>333
+    console.log(c.innerText); // 222
+                              // 333
+    console.log(d.outerHTML); // <input type="text" value="我是 input">
+
+    /**
+     * hasAttributes() - 是否有属性
+     * hasAttribute() - 是否有指定的属性
+     * getAttribute() - 获取指定属性的值
+     * attributes[].name - 指定索引位置的属性的属性名
+     * attributes[].value - 指定索引位置的属性的属性值
+     */
+    console.log(d.hasAttributes(), d.hasAttribute("type"), d.getAttribute("type"), d.attributes[1].name, d.attributes[1].value); // true true "text" "value" "我是 input"
+
+    /**
+     * nodeType - 节点类型（1 - html, 2 - attribute, 3 - text）
+     * nodeName - 节点名称
+     * nodeValue - 节点值
+     * textContent - html 节点的文本值
+     * value - input 节点的 value 值
+     */
+    console.log(c.nodeType, c.nodeName, c.nodeValue, c.textContent); // 1 "DIV" null "222333"
+    console.log(d.nodeType, d.nodeName, d.nodeValue, d.value); // 1 "INPUT" null "我是 input"
+    console.log(c.firstChild.nodeType, c.firstChild.nodeName, c.firstChild.nodeValue); // 3 "#text" "222"
+    console.log(d.attributes[0].nodeType, d.attributes[0].nodeName, d.attributes[0].nodeValue); // 2 "type" "text"
+
+    /**
+     * h5 新增的方法：
+     * dataset[] - 设置或获取 data-* 属性
+     *     注：属性名必须使用驼峰法命名
+     */
+    a.dataset["schoolName"] = "abc";
+    console.log(a.dataset["schoolName"], a.outerHTML); // abc <div data-school-name="abc">111</div>
+
+</script>
+
+</body>
+</html>

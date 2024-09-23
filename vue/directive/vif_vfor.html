@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 指令（v-if, v-show, v-for）</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+
+    <!--
+        v-if/v-else-if/v-else 指令
+        打开浏览器看一下渲染结果，符合条件的 html 会被显示，不符合条件的 html 会被删除
+    -->
+    <div v-if="myInt > 100">
+        myInt > 100
+    </div>
+    <div v-else-if="myInt < 100">
+        myInt < 100
+    </div>
+    <div v-else>
+        myInt === 100
+    </div>
+
+    <!--
+        v-show 指令（类似 v-if）
+        打开浏览器看一下渲染结果，符合条件的 html 会被显示，不符合条件的 html 虽然不会被删除，但是会被 style="display: none;" 隐藏
+    -->
+    <div v-show="myInt > 100">myInt > 100</div>
+    <div v-show="myInt === 100">myInt === 100</div>
+
+    <!--
+        v-for 指令
+    -->
+    <!--遍历集合-->
+    <ul>
+        <li v-for="item in myArray">
+            {{ item.name }}, {{ item.age }}
+        </li>
+    </ul>
+
+    <!--遍历集合，第 2 个参数是可选的，其表示当前遍历出的元素的索引位置-->
+    <ul>
+        <li v-for="(item, index) in myArray">
+            {{ index }}, {{ item.name }}, {{ item.age }}
+        </li>
+    </ul>
+
+    <!--
+        v-for 指令可以遍历 key/value 对象
+        1、第一个参数是遍历出的 value
+        2、第二个参数是遍历出的 key（这是可选参数）
+        3、第三个参数是遍历出的 key/value 的索引位置（这是可选参数）
+    -->
+    <ul>
+        <li v-for="(value, key, index) in myObject">
+            {{ index }}, {{ key }}, {{ value }}
+        </li>
+    </ul>
+
+    <!--v-for 指令可以遍历整型，下面的结果是 1, 2, 3-->
+    <ul>
+        <li v-for="n in 3">
+            {{ n }}
+        </li>
+    </ul>
+
+    <!--在 template 中使用 v-for 指令（这样就可以循环多个元素内容了，看一下最终的渲染结果，template 节点是不会出现的）-->
+    <ul>
+        <template v-for="item in myArray">
+            <li>{{ item.name }}, {{ item.age }}</li>
+            <li>----------</li>
+        </template>
+    </ul>
+
+    <!--v-for/v-if 一起使用时要注意，下面这句会报错的，因为 vue 中 v-if 的优先级高于 v-for 所以下面的例子中 v-if 拿不到 item 所以就会报错-->
+    <!--
+    <li v-for="item in myArray" v-if="item.age > 18">
+        {{ item.name }}, {{ item.age }}
+    </li>
+    -->
+    <!--如果你需要先计算 v-for 后计算 v-if 的话，则可以像下面这样通过 template 的方式-->
+    <template v-for="item in myArray">
+        <li v-if="item.age > 18">
+            {{ item.name }}, {{ item.age }}
+        </li>
+    </template>
+
+</div>
+
+<script>
+
+    Vue.createApp({
+        data() {
+            return {
+                myInt: 100,
+                myArray: [
+                    { name: 'aaa', age: 10 },
+                    { name: 'bbb', age: 20 },
+                    { name: 'ccc', age: 30 },
+                ],
+                myObject: {
+                    name: 'aaa', age: 10
+                }
+            }
+        }
+    }).mount('#root');
+
+</script>
+</body>
+</html>

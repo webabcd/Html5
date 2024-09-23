@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM 获取元素，修改元素的样式</title>
+    <style>
+        .elementClass
+        {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div>aaa</div>
+<div id="elementId">bbb</div>
+<div class="elementClass">ccc</div>
+<div name="elementName">ddd</div><!--这个就是演示用，一般 name 是用于 input 的，用来拼接表单数据用的-->
+<div k1="v1">eee</div>
+
+<div id="result"></div>
+
+<script>
+
+    let result = document.getElementById("result");
+
+    // 传统的获取元素的方式
+    let a = document.getElementsByTagName("div")[0]
+    let b = document.getElementById("elementId");
+    let c = document.getElementsByClassName("elementClass")[0];
+    let d = document.getElementsByName("elementName")[0]; // input 的 name 属性用于表单提交时构造数据用，可以重复
+    result.innerHTML = `${a.innerHTML}<br />${b.innerHTML}<br />${c.innerHTML}<br />${d.innerHTML}<br />`;
+
+    /**
+     * h5 新增的方法：
+     * document.querySelectorAll() - 根据 css selector 来获取元素
+     * document.querySelector() - 根据 css selector 来获取元素，如果有多个，则只返回第 1 个
+     */
+    let e = document.querySelector("div");
+    let f = document.querySelector("#elementId");
+    let g = document.querySelector(".elementClass");
+    let h = document.querySelector("div[k1]");
+    result.innerHTML += `${e.innerHTML}<br />${f.innerHTML}<br />${g.innerHTML}<br />${h.innerHTML}<br />`;
+
+
+
+    // 设置元素的 class 属性
+    // h.className = "elementClass";
+    // 设置元素的内联样式
+    // h.style.fontSize = "36px";
+
+    /**
+     * h5 新增的方法：
+     * classList - 元素引用的全部 class 名列表
+     *     length - 引用的类名的总数
+     *     contains(class) - 是否包含指定的类名
+     *     item(index) - 返回指定索引位置的类名（超出范围会返回 null）
+     *     add(class1, class2, ...) - 添加指定的类名（已存在则不再添加）
+     *     remove(class1, class2, ...) - 删除指定的类名（不存在也不会报错）
+     *     toggle(class) - 有指定的类名则删除，并返回 false；无指定的类名则添加，并返回 true
+     */
+    h.classList.add("elementClass");
+
+</script>
+
+</body>
+</html>

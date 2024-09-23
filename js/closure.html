@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>闭包</title>
+</head>
+<body>
+
+<script>
+
+    // 函数内的函数就是一个闭包（closure）
+    function func1() {
+        // 闭包外的变量
+        var x = 0;
+
+        function func2() {
+            return ++x;
+        }
+        // 返回一个闭包
+        return func2;
+    }
+    // 获取一个闭包
+    var c = func1();
+    // 闭包引用的闭包外的变量的生命周期会拉长到与闭包一致
+    // c 是 func2，但是由于 c 是一个闭包，所以他的外部变量 x 的生命周期会拉长到与闭包一致
+    // 也就是说 c 可以访问 x，只要 c 不死 x 就不死
+    console.log(c());
+    console.log(c());
+    console.log(c());
+
+
+    function func3() {
+        var x = 100;
+        // func4 是一个闭包
+        func4 = function () {
+            return ++x;
+        }
+    }
+    // 调用 func3 后，你就可以使用 func4 了
+    func3();
+    console.log(func4());
+    console.log(func4());
+    console.log(func4());
+
+</script>
+
+</body>
+</html>

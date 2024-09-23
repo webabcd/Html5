@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通过 float 布局实现 3 栏式布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            height: 600px;
+        }
+
+        /* 3 栏都是 float:left 布局 */
+        .main, .left, .right {
+            float: left;
+            height: 100%;
+            color: white;
+        }
+        /* main 宽度 100% */
+        .main {
+            background: red;
+            width: 100%;
+        }
+        /*
+            left 宽度 150px
+            从 html 看，main 是第 1 个绘制的，其占 100% 了，left 是第 2 个绘制的，正常其会显示在 main 的下一行
+            指定了 left 的 margin-left:-100% 的意思就是 left 向左移动整个屏幕的宽度，也就是说 left 会与 main 同行，且居左显示
+            由于 left 在 main 之后绘制，所以 left 会遮盖 main
+        */
+        .left {
+            background: green;
+            width: 150px;
+            margin-left: -100%;
+        }
+        /*
+            right 宽度 200px
+            上面说了 main 和 left 都在第 1 行，而 mian 占 100% 了，那么第 3 个绘制的 right 正常来说会显示在 main 的下一行
+            指定了 right 的 margin-left:-200px 的意思就是 right 向左移动 200px 的宽度，而 right 本身的宽度也是 200px，也就是说 right 会与 main 同行，且居右显示
+            由于 right 在 main 之后绘制，所以 right 会遮盖 main
+         */
+        .right {
+            background: blue;
+            width: 200px;
+            margin-left: -200px;
+        }
+        /*
+            这个是 main 内部的 div
+            上面说了 left 和 right 会覆盖 main
+            所以这里 margin-left:150px; margin-right:200px; 是为了躲开 main 的被 left 和 right 覆盖的部分
+         */
+        .main-inner {
+            margin-left: 150px;
+            margin-right: 200px;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<section class="container">
+    <div class="main">
+        <div class="main-inner">
+            main
+        </div>
+    </div>
+    <div class="left">left</div>
+    <div class="right">right</div>
+</section>
+
+</body>
+</html>

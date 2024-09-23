@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网络状态</title>
+</head>
+<body>
+
+<div id="txtMsg"></div>
+
+<script>
+    var txtMsg = document.getElementById("txtMsg");
+
+    // navigator.onLine - 是否有网
+    txtMsg.innerHTML += "navigator.onLine: " + navigator.onLine;
+    txtMsg.innerHTML += "<br />";
+    // navigator.connection.type - 当前网络类型（测试了一下，android chrome 支持，ios safari 不支持）
+    //     可能的值有：cellular, wifi, ethernet, bluetooth, wimax, mixed, other, unknown, none
+    txtMsg.innerHTML += "navigator.connection.type: " + navigator.connection.type;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+/* 本例用于演示如何通过 postcss 编译 css */
+.css1 {
+    display: flex;
+    /* 水平居中 */
+    justify-content: center;
+    /* 垂直居中 */
+    align-items: center;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    color: white;
+    transform: rotate(15deg);
+}

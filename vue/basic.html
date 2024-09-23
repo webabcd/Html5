@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 模板语法基础（MVVM, 插值, 指令等）</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+
+    <style>
+        .class1 {
+            font-size: 36px;
+        }
+        .class2 {
+            color: red;
+        }
+        .class3 {
+            background: blue;
+        }
+
+        [v-cloak] { display: none; }
+    </style>
+</head>
+<body>
+
+<!--
+    下面的 html 介绍了 vue 的模板语法（Template Syntax）的基础，vue.js 会将你的模板语法渲染为最终的 html（也可以称之为编译）
+    vue 是 MVVM（Model-View-ViewModel）模式的，大部分场景是单向绑定，即 vm 变了 v 就会变
+-->
+
+<!--
+    如果 vue.js 加载慢，那么就会先显示未经 vue 渲染的 html，等到 vue.js 加载完后再显示 vue 渲染后的 html，为了避免这种情况，可以通过如下方式解决
+    1、在 vue 的根元素上加 v-cloak 指令，然后 css 中加这句 [v-cloak] { display: none; }
+    2、如果你是通过路由挂载的，那么就不会出现此情况
+-->
+<div id="root" v-cloak>
+
+    <!--插值（interpolation）方式，在 {{ }} 内调用 vue 中定义的属性-->
+    <div>{{ myMessage }}</div>
+    <!--插值（interpolation）方式，在 {{ }} 内调用 vue 中定义的方法-->
+    <div>{{ getMessage() }}</div>
+    <!--可以使用简单的表达式-->
+    <div>{{ myBool ? myMessage.split('').join(',') : "" }}</div>
+    <!--可以和对象的属性绑定-->
+    <div>{{ myObject.name }} {{ myObject.age }}</div>
+
+    <!--指令（directive）方式，就是以下这些在元素上声明 v-xxx 的方式-->
+    <!--
+        v-pre 指令: 禁止 vue 渲染
+    -->
+    <div v-pre>{{ myMessage }}</div>
+
+    <!--
+        v-pre 指令: 禁止 vue 渲染
+        v-text 指令: 文本方式显示
+        v-html 指令: html 方式显示
+        v-once 指令: 只渲染一次（正常来说 vm 变了 v 就会变，如果用了 v-once 指令则 v 只渲染一次，之后 v 不会再随 vm 的变化而变化）
+    -->
+    <div v-text="myMessage"></div>
+    <div v-html="myMessage"></div>
+    <div v-once>{{ myMessage }}</div>
+
+    <!--在指令中可以使用简单的表达式-->
+    <div v-html="myMessage + '_xyz'"></div>
+
+    <!--
+        v-bind 指令: 将 html 元素的指定的属性绑定到 vue 中定义的属性或方法（v-bind: 可以简写为 :）
+    -->
+    <!--style 属性与 vue 中定义的 myStyle 属性绑定-->
+    <div v-bind:style="myStyle">abc</div>
+    <!--style 属性与 vue 中定义的 getStyle() 方法绑定-->
+    <div v-bind:style="getStyle()">abc</div>
+    <!--支持简单的表达式-->
+    <div :style="'color:' + myColor">abc</div>
+    <!--style 属性支持 key/value 的方式绑定-->
+    <div :style="{ color: myColor, fontSize: '48px' }">abc</div>
+
+    <!--class 属性支持与多个 vue 中定义的属性绑定，下面这句的结果是 class="class1 class2 class3"-->
+    <div class="class1" :class="[myClass2, myClass3]">abc</div>
+    <!--class 属性支持 key/value 的方式绑定（value 为 true 则渲染，value 为 false 则舍弃），下面这句的结果是 class="class2 class3"-->
+    <div :class="{'class1':!myBool, 'class2':myBool, 'class3':true}">abc</div>
+    <!--class 属性支持与 vue 中定义的 key/value 类型的属性绑定（value 为 true 则渲染，value 为 false 则舍弃），下面这句的结果是 class="class2 class3"-->
+    <div :class="myClass">abc</div>
+
+    <!--
+        v-model 指令: 双向绑定（详见: directive/vmodel.html）
+    -->
+    <input v-model="myMessage">
+
+    <!--
+        v-on 指令: 事件处理，v-on: 可以简写为 @（详见: directive/von.html）
+    -->
+    <!--click 事件会调用 vue 中定义的 updateMessage() 方法-->
+    <br>
+    <button @click="updateMessage()">调用 vue 中定义的 updateMessage() 方法</button>
+
+    <!--click 事件会调用 js 中定义的 updateMessage() 方法-->
+    <br>
+    <button onclick="updateMessage()">调用 js 中定义的 updateMessage() 方法</button>
+
+</div>
+
+<script>
+
+    // 定义一个根组件选项
+    const option = {
+
+        // 在 vue 中定义属性，它会存储在组件实例的 $data 中
+        data() {
+            return {
+                myMessage: "hello: vue",
+                myObject: {
+                    name: "wanglei",
+                    age: 40
+                },
+                myStyle: "color: orange",
+                myColor: "red",
+                myClass2: "class2",
+                myClass3: "class3",
+                myClass: {
+                    'class1': false,
+                    'class2': true,
+                    'class3': true && 1 === 1
+                },
+                myBool: true
+            }
+        },
+        // 在 vue 中定义方法（其他还有 computed, watch 等，参见 option.html）
+        methods: {
+            updateMessage() {
+                // this 指向的是当前组件实例
+                var random = Math.floor(Math.random() * 100);
+                this.myMessage = "hello: " + random;
+            },
+            getMessage() {
+                return this.myMessage;
+            },
+            getStyle() {
+                return this.myStyle;
+            }
+        }
+    };
+
+    // Vue.createApp() - 创建一个 vue 实例（需要指定根组件选项）
+    //   mount() - 挂载指定的 html 节点（此节点将被 vue 渲染），并返回根组件的实例
+    const vm = Vue.createApp(option).mount('#root');
+
+    function updateMessage() {
+        // 在 js 中调用 vue 中定义的方法（vm 是根组件实例）
+        var message1 = vm.getMessage();
+
+        // 在 js 中获取 vue 中定义的属性（注: $data 可以省略）
+        // vue 暴露在外的属性或方法一般都是 $ 开头的
+        var message2 = vm.$data.myMessage;
+
+        // 在 js 中设置 vue 中定义的属性
+        var random = Math.floor(Math.random() * 100);
+        vm.myMessage = "<span style='color: red'>hello: " + random + "</span>";
+    }
+</script>
+</body>
+</html>

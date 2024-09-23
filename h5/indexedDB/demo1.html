@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB - 基本的增删改查的示例</title>
+</head>
+<body>
+
+<script>
+
+    // IndexedDB 的所有操作都是异步的
+    // 打开数据库，第一个参数是数据库名称，第二个参数是数据库版本（新建库或库版本变更时会触发 onupgradeneeded 事件）
+    var request = window.indexedDB.open('myDB1', 1);
+
+    // 数据库打开失败
+    request.onerror = function() {
+        console.log('indexedDB onerror');
+    };
+
+    // 新建库或库版本变更时会触发的事件
+    // 一般在这里管理表和索引之类的，在 onupgradeneeded 事件之后才会触发 onsuccess 事件
+    request.onupgradeneeded = function(event) {
+        // event.target 就是 window.indexedDB.open() 返回的 request 对象
+        // event.target.result 是 db 对象
+        console.log('indexedDB onupgradeneeded');
+        var db = event.target.result;
+
+        // 是否有指定名称的表
+        if (!db.objectStoreNames.contains('employee')) {
+            // 创建指定名称的表（注: IndexedDB 把表叫做对象仓库）
+            //     keyPath - 指定主键的字段名
+            //     autoIncrement - 主键是否自增长
+            var objectStore = db.createObjectStore('employee', { keyPath: 'id', autoIncrement: true });
+            // 创建索引
+            //     第 1 个参数 - 索引名称
+            //     第 2 个参数 - 需要索引的字段名称
+            //     第 3 个参数 - unique 是否唯一
+            objectStore.createIndex('name', 'name', { unique: false });
+            objectStore.createIndex('email', 'email', { unique: true });
+
+            // 注：主键或索引也是可以指定在子级上的
+            // 比如数据 { a: { b: 'x' } } 你可以将 a.b 设置为主键或索引
+        }
+    };
+
+    // 数据库打开成功的事件，在此之后就可以进行数据操作了
+    request.onsuccess = function(event) {
+        // event.target 就是 window.indexedDB.open() 返回的 request 对象
+        // event.target.result 是 db 对象
+        console.log('indexedDB onsuccess');
+        db = event.target.result;
+
+        add(db);
+        update(db);
+        remove(db);
+        readByKey(db);
+        readByIndex(db);
+        readAll(db);
+        other(db);
+    };
+
+    // 添加数据的示例
+    function add(db) {
+        // 创建一个操作事务
+        //     第 1 个参数 - 需要操作的表
+        //     第 2 个参数 - readonly 只读, readwrite 读写
+        var transaction = db.transaction(['employee'], 'readwrite');
+        // 获取指定的表对象
+        var objectStoreEmployee = transaction.objectStore('employee');
+
+        var random = Math.random();
+        // 新增数据
+        var request = objectStoreEmployee.add({name: 'webabcd_' + random.toString(10), age: Math.ceil(100 * random), email: 'webabcd_' + random.toString(10) + "@email.com" });
+
+        // 成功
+        request.onsuccess = function (event) {
+            // event.target 就是 add() 返回的 request 对象
+            console.log('数据新增成功', event);
+        };
+
+        // 失败
+        request.onerror = function (event) {
+            // event.target 就是 add() 返回的 request 对象
+            console.log('数据新增失败', event);
+        }
+    }
+
+    // 更新数据的示例
+    function update(db) {
+        var transaction = db.transaction(['employee'], 'readwrite');
+        var objectStoreEmployee = transaction.objectStore('employee');
+
+        // 更新数据（根据主键更新数据）
+        var request = objectStoreEmployee.put({ id: 1, name: 'webabcd', age: 40, email: 'webabcd@email.com' });
+
+        request.onsuccess = function (event) {
+            console.log('数据更新成功', event);
+        };
+
+        request.onerror = function (event) {
+            console.log('数据更新失败', event);
+        }
+    }
+
+    // 删除数据的示例
+    function remove(db) {
+        var transaction = db.transaction(['employee'], 'readwrite');
+        var objectStoreEmployee = transaction.objectStore('employee');
+
+        // 删除指定主键的数据
+        var request = objectStoreEmployee.delete(2);
+
+        request.onsuccess = function (event) {
+            console.log('数据删除成功', event);
+        };
+
+        request.onerror = function (event) {
+            console.log('数据删除失败', event);
+        }
+    }
+
+    // 根据主键获取数据的示例
+    function readByKey(db) {
+        var transaction = db.transaction(['employee']);
+        var objectStore = transaction.objectStore('employee');
+
+        // 根据主键获取数据
+        var request = objectStore.get(1);
+
+        request.onerror = function(event) {
+            console.log('数据读取失败', event);
+        };
+
+        request.onsuccess = function(event) {
+            if (event.target.result) {
+                console.log('get(1): ', event.target.result);
+            } else {
+                console.log('未获得指定主键的数据');
+            }
+        };
+    }
+
+    // 根据索引获取数据的示例
+    function readByIndex(db) {
+        var transaction = db.transaction(['employee']);
+        var objectStore = transaction.objectStore('employee');
+
+        // 获取指定名称的索引
+        var index = objectStore.index('name');
+        // 获取索引中指定名称的数据
+        var request = index.get('webabcd');
+
+        request.onerror = function(event) {
+            console.log('数据读取失败', event);
+        };
+
+        request.onsuccess = function(event) {
+            if (event.target.result) {
+                console.log("index('name').get('webabcd'): ", event.target.result);
+            } else {
+                console.log('未获得指定索引的指定名称的数据');
+            }
+        };
+    }
+
+    // 遍历数据的示例
+    function readAll(db) {
+        var transaction = db.transaction(['employee'], 'readonly');
+        var objectStoreEmployee = transaction.objectStore('employee');
+
+        // 打开游标
+        var request = objectStoreEmployee.openCursor();
+
+        request.onsuccess = function (event) {
+            // 获得当前游标
+            var cursor = event.target.result;
+
+            if (cursor) {
+                // cursor.value 就是当前游标对应的记录
+                console.log('employee', cursor.value);
+                // 将游标移动到下一条记录
+                cursor.continue();
+            } else {
+                console.log('没有更多数据了');
+            }
+        };
+    }
+
+    // 其他操作示例
+    function other(db) {
+        var transaction = db.transaction(['employee']);
+        var objectStore = transaction.objectStore('employee');
+
+        // 获取总的数据条数
+        // var request = objectStore.count();
+
+        // 清空全部数据
+        // var request = objectStore.clear();
+
+        // request.onerror = function(event) { };
+        // request.onsuccess = function(event) { };
+    }
+
+</script>
+
+</body>
+</html>

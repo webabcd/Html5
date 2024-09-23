@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后代选择器，子选择器，相邻兄弟选择器，兄弟选择器</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            后代选择器（descendant selector）
+            匹配的是 .c1 内的所有 span 元素，无论几层嵌套
+         */
+        .c1 span {
+            color: red;
+        }
+
+        /*
+            子选择器（child selector）
+            匹配的是 .c2 的所有子 span 元素，仅包括 .c2 的儿子，孙子和孙子之后的都不包括
+         */
+        .c2 > span {
+            color: green;
+        }
+
+        /*
+            相邻兄弟选择器（adjacent sibling selector）
+            匹配的是 .c3 内的
+            div 的同辈分的下一个 span 元素
+         */
+        .c3 div + span {
+            color: blue;
+        }
+
+        /*
+            兄弟选择器（sibling selector）
+            匹配的是 .c4 内的
+            div 的同辈分的之后的所有 span 元素
+         */
+        .c4 div ~ span {
+            color: blue;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="c1">
+    <span>span 1</span>
+    <div>
+        <span>span 2</span>
+    </div>
+    <span>span 3</span>
+</div>
+<br /><br />
+
+<div class="c2">
+    <span>span 1</span>
+    <div>
+        <span>span 2</span>
+    </div>
+    <span>span 3</span>
+</div>
+<br /><br />
+
+<div class="c3">
+    <span>span 0</span>
+    <div>
+        <span>span 1</span>
+    </div>
+    <span>span 2</span>
+    <br />
+    <span>span 3</span>
+</div>
+<br /><br />
+
+<div class="c4">
+    <span>span 0</span>
+    <div>
+        <span>span 1</span>
+    </div>
+    <span>span 2</span>
+    <br />
+    <span>span 3</span>
+</div>
+
+</body>
+</html>

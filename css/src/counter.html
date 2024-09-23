@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>counter 计数器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            counter-reset - 重置指定的计数器
+            counter-increment - 指定的计数器加 1
+            counter - 获取指定的计数器的数值
+        */
+        div
+        {
+            counter-reset:counter1;
+        }
+        h1
+        {
+            counter-reset:counter2;
+        }
+        h1:after
+        {
+            counter-increment:counter1;
+            content:"item " counter(counter1);
+        }
+        h2:after
+        {
+            counter-increment:counter2;
+            content:"item " counter(counter1) "_" counter(counter2);
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h1></h1>
+    <h2></h2>
+    <h2></h2>
+    <h2></h2>
+
+    <h1></h1>
+    <h2></h2>
+    <h2></h2>
+
+    <h1></h1>
+    <h2></h2>
+    <h2></h2>
+</div>
+
+</body>
+</html>

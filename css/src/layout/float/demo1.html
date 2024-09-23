@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>float 布局基础</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .div1 {
+            width:400px;
+            padding:10px;
+            border:1px solid #F00
+        }
+        .div1 div[style^=float] {
+            width:150px;
+            border:1px solid #00F;
+            height:50px;
+        }
+    </style>
+</head>
+<body>
+
+<!--
+    float - 浮动
+        none - 不浮动
+        left - 左浮动
+        right - 右浮动
+
+    clear - 清除浮动
+        none - 允许两边有浮动
+        left - 不允许左边有浮动
+        right - 不允许右边有浮动
+        both - 不允许两边有浮动
+-->
+
+<div class="div1">
+    <div style="float: left">左浮动</div>
+    <div style="float: right">右浮动</div>
+    <!--
+        除了加一个 clear:both 的 div 外，也可以对上面的 div 设置 .clearAfter:after { content: "";  clear: both; }
+    -->
+    <div style="clear: both"></div>
+</div>
+<br />
+<br />
+<div class="div1">
+    <!--
+        如果没有 clear 的话，由于 div1 内部都是浮动对象，所以 div1 的高度不会被撑开
+    -->
+    <div style="float: left">左浮动</div>
+    <div style="float: right">右浮动</div>
+</div>
+<br />
+<br />
+<br />
+<br />
+
+
+<!--
+    下面演示 float 后有无 clear 的不同效果，运行演示时调整浏览器的宽度继续观察不同的效果
+-->
+<div style="background-color: red; color: white">
+    <div style="float: left; width: 600px; background-color: green">aaa</div>
+    <div style="float: left; width: 600px; background-color: blue">bbb</div>
+    <div style="background-color: orange">ccc</div>
+</div>
+<br />
+<br />
+<div style="background-color: red; color: white">
+    <div style="float: left; width: 600px; background-color: green">aaa</div>
+    <div style="float: left; width: 600px; background-color: blue">bbb</div>
+    <div style="clear: both"></div>
+    <div style="background-color: orange">ccc</div>
+</div>
+<br />
+<br />
+
+
+<!--
+    float 也可以实现如下的文字环绕图片的效果
+-->
+<div>
+    <img style="float: right" src="image.gif" width="100" height="60" />
+    层叠样式表(英文全称：Cascading Style Sheets)是一种用来表现HTML（标准通用标记语言的一个应用）或XML（标准通用标记语言的一个子集）等文件样式的计算机语言。CSS不仅可以静态地修饰网页，还可以配合各种脚本语言动态地对网页各元素进行格式化。CSS 能够对网页中元素位置的排版进行像素级精确控制，支持几乎所有的字体字号样式，拥有对网页对象和模型样式编辑的能力。
+</div>
+
+</body>
+</html>

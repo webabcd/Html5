@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伪元素（pseudo element）</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /*
+            伪元素用于为类选择器添加特殊的效果
+            在 css2 中伪元素用“:”
+            在 css3 中为了区分伪类，伪元素用“::”
+        */
+
+        /* 匹配的是 .div1 的第 1 个字符 */
+        .div1::first-letter {
+            text-transform: uppercase;
+        }
+
+        /* 匹配的是 .div2 的第 1 行内容 */
+        .div2::first-line {
+            color: green;
+        }
+
+        /* 在 .div3 前插入红色的左引号（这个插入的字符串在页面上是无法选中的） */
+        .div3::before {
+            content: "“";
+            color: red;
+        }
+        /* 在 .div3 后插入绿色的右引号（这个插入的字符串在页面上是无法选中的） */
+        .div3::after {
+            content: "”";
+            color: green;
+        }
+
+        /* 在 .div4 后插入图片（无法设置图片的宽和高） */
+        .div4::before {
+            content: url("image.gif");
+        }
+
+        /* 设置 .div5 中的文本被选中时的样式 */
+        .div5::selection {
+            background-color: red;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="div1">webabcd</div>
+
+<div class="div2">
+    webabcd
+    <br />
+    webabcd
+    <br />
+    webabcd
+</div>
+
+<div class="div3">webabcd</div>
+
+<div class="div4">webabcd</div>
+
+<div class="div5">webabcd</div>
+
+</body>
+</html>

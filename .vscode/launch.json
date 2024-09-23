@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run css",
+            "file": "d:\\gitroot\\Html5\\css\\dist\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run js",
+            "file": "d:\\gitroot\\Html5\\js\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run dom",
+            "file": "d:\\gitroot\\Html5\\dom\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run h5",
+            "file": "d:\\gitroot\\Html5\\h5\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run vue",
+            "file": "d:\\gitroot\\Html5\\vue\\index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "run es6",
+            "file": "d:\\gitroot\\Html5\\es6\\dist\\index.html"
+        }
+    ]
+}

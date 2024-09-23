@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通过 web worker 实现多线程</title>
+</head>
+<body>
+
+    <!--注：运行本示例时，必须要在一个 web server 中运行，不能通过直接打开本地文件的方式运行-->
+
+    <button id="buttonStartThread">启动 worker 线程</button>
+    <div id="result"></div>
+    <script>
+        let buttonStartThread = document.getElementById('buttonStartThread');
+        buttonStartThread.onclick = function() {
+            let worker = new Worker('worker.js');
+            // UI 线程给 worker 线程传递数据
+            worker.postMessage(new Date());
+
+            // 收到 worker 线程发过来的数据
+            worker.onmessage = function(event) {
+                let data = event.data;
+                console.log("从 worker 线程收到数据", data);
+            }
+        }
+    </script>
+
+</body>
+</html>

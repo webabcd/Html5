@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>属性选择器（attribute selector）</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 匹配的是有 k1 属性的所有元素 */
+        *[k1] {
+            font-size: 14px;
+        }
+
+        /* 匹配的是有 k1 属性的 h1 元素*/
+        h1[k1] {
+            color:red;
+        }
+
+        /* 匹配的是既有 k1 属性又有 k2 属性的 h1 元素 */
+        h1[k1][k2] {
+            color:green;
+        }
+
+        /* 匹配的是 k1 属性为 v1，且 k2 属性为 v2 的 h1 元素 */
+        h1[k1="v1"][k2="v2"] {
+            color: blue;
+        }
+
+        /* 匹配的是 k1 属性值用空格分割成数组后，包含 aaa 元素的 h1 元素 */
+        h1[k1~="aaa"] {
+            color: orange;
+        }
+
+        /* 匹配的是 k1 属性值为 bbb 开头的 h1 元素 */
+        h1[k1^="bbb"] {
+            color: red;
+        }
+
+        /* 匹配的是 k1 属性值为 ccc 结尾的 h1 元素 */
+        h1[k1$="ccc"] {
+            color: green;
+        }
+
+        /* 匹配的是 k1 属性值包含 ccc 的 h1 元素 */
+        h1[k1*="ddd"] {
+            color: blue;
+        }
+
+        /* 匹配的是 k1 属性值为 ccc 或 ccc- 或 ccc-* 的 h1 元素 */
+        h1[k1|="ccc"] {
+            color: orange;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1 k1>h1[k1]</h1>
+
+<h1 k1>h1[k1]</h1>
+<h1 k1 k2>h1[k1][k2]</h1>
+<h1 k1="v1" k2="v2">h1[k1="v1"][k2="v2"]</h1>
+<h1 k1="aaa bbb">h1[k1~="aaa"]</h1>
+<h1 k1="bbbxxx">h1[k1^="bbb"]</h1>
+<h1 k1="xxxccc">h1[k1$="ccc"]</h1>
+
+<h1 k1="ccc">h1[k1|="ccc"]</h1>
+<h1 k1="ccc-">h1[k1|="ccc"]</h1>
+<h1 k1="ccc-1">h1[k1|="ccc"]</h1>
+<h1 k1="ccc-2">h1[k1|="ccc"]</h1>
+
+</body>
+</html>

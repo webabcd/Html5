@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>drag 和 drop</title>
+</head>
+<body>
+
+<!--
+    可 drag 的元素要加上 draggable='true'
+    dragstart - 开始 drag 时触发的事件
+        注： 如果向下面这样，在 html 元素上直接使用 event 的话，IDE 会有个“Deprecated symbol used, consult docs for better alternative”提示（当然这也没啥影响），如果使用 addEventListener 则不会有此提示
+-->
+<div id='divDrag' draggable='true' ondragstart="dragstart(event)">我可以 drag</div>
+
+<!--
+    drop - 在当前元素 drop 时触发的事件
+    dragover - drag 后在当前元素上移动时触发的事件
+-->
+<div id='divDrop' style="width: 400px; height: 300px; background-color: orange" ondrop="drop(event)">我可以 drop</div>
+
+<script>
+
+    function dragstart(event) {
+        // 将拖拽元素的数据保存在 dataTransfer 中
+        let myData = document.getElementById(event.target.id).innerHTML;
+        event.dataTransfer.setData("myData", myData);
+    }
+
+    function drop(event){
+        event.preventDefault();
+        // 从 dataTransfer 中获取拖拽数据
+        let myData = event.dataTransfer.getData('myData');
+        event.target.innerHTML += myData;
+    }
+
+    // dragover - drag 后在当前元素上移动时触发的事件
+    // 如果在 html 元素上直接使用 event 的话，IDE 会有个“Deprecated symbol used, consult docs for better alternative”提示（当然这也没啥影响），如果使用如下方式则不会有此提示
+    document.getElementById("divDrop").addEventListener("dragover", function (event) {
+        event.preventDefault();
+
+        console.info(event);
+    });
+
+</script>
+
+</body>
+</html>

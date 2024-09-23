@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 组件选项（data, methods, computed, watch, created, mounted）</title>
+    <script src="../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+
+    <div>
+        methods 中定义的方法：{{ getUserInfo() }}
+    </div>
+
+    <div>
+        computed 中定义的计算属性：{{ userInfo }}
+    </div>
+
+    <div>
+        data() 中定义的属性：{{ name }}, {{ age }}
+    </div>
+
+    <br>
+    <!--调用 vue 中定义的 updateUserInfo() 方法-->
+    <button @click="updateUserInfo()">更新用户信息</button>
+
+    <br>
+    <!--在 js 中调用 vue 中定义的方法。注意弹出框中显示的时间戳，每次调用都会发生变化-->
+    <button onclick="invoke_methods()">调用 methods</button>
+
+    <br>
+    <!--在 js 中调用 vue 中定义的计算属性。注意弹出框中显示的时间戳，只要依赖的数据不变，则每次调用都不会发生变化-->
+    <button onclick="invoke_computed()">调用 computed</button>
+
+    <br>
+    <!--更新 age 属性，用于演示属性变化监听器。另外，在指令中可以使用简单的表达式-->
+    <button @click="this.age = Math.floor(Math.random() * 100)">更新 age</button>
+
+</div>
+
+<script>
+
+    // 这是一个组件选项
+    // 注意：尽量不要在这里使用箭头函数，因为箭头函数的 this 指向的不是当前对象，这可能会导致一些错误
+    const option = {
+
+        // 相当于属性
+        data() {
+            return {
+                name: "webabcd",
+                age: 40
+            }
+        },
+        // 相当于方法
+        methods: {
+            getUserInfo() {
+                return `${new Date().getTime()} - name:${this.name}, age:${this.age}`;
+            },
+            // 可以调用 data() 中的属性
+            updateUserInfo() {
+                var random = Math.floor(Math.random() * 100);
+                this.name = "webabcd" + random;
+                this.age = random;
+            }
+        },
+        // 计算属性
+        // 1、计算属性和 data() 中定义的属性的区别是：计算属性可以有复杂的表达式，可以调用 methods 中的方法和 data() 中的属性
+        // 2、计算属性和 methods 中定义的方法的区别是：首先一个是属性一个是方法，另外：
+        //    a) computed 当依赖的数据发生变化时会重新计算，但是无论你调用多少次，只要依赖的数据未变则不会重新计算，而是从内存缓存中取
+        //    b) methods 当依赖的数据发生变化时会重新计算，你每次调用的时候也都会重新计算
+        computed: {
+            // 计算属性默认只有 getter
+            userInfo() {
+                return this.getUserInfo();
+            },
+            // 需要 setter 的话就按如下方式做
+            myAge:{
+                get() {
+                    return this.age;
+                },
+                set(value) {
+                    this.age = value;
+                }
+            }
+        },
+        // 属性变化监听器，data() 中定义的属性和 computed 属性均可监听
+        watch: {
+            // 监听 name 属性的变化，此属性发生变化时就会调用这个函数
+            name(newValue, oldValue) {
+                alert(`name - newValue:${newValue}, oldValue:${oldValue}`);
+            }
+        },
+        // 这是组件的一个生命周期，在模板渲染成 html 前调用（无法访问 DOM）
+        created() {
+            console.log("created()")
+        },
+        // 这是组件的一个生命周期，在模板渲染成 html 后调用（可以访问 DOM）
+        mounted() {
+            console.log("mounted()")
+        }
+    };
+
+    // Vue.createApp() - 创建一个 vue 实例（需要指定根组件选项）
+    //   mount() - 挂载指定的 html 节点（此节点将被 vue 渲染），并返回根组件的实例
+    const vm = Vue.createApp(option).mount('#root');
+
+    // vm 是上面获取到的根组件的实例
+    // 通过 vm 的 $watch() 可以监听指定的属性的变化（注：vue 暴露在外的属性或方法一般都是 $ 开头的）
+    vm.$watch('age', function(newValue, oldValue) {
+        alert(`age - newValue:${newValue}, oldValue:${oldValue}`);
+    });
+
+    function invoke_methods() {
+        // 调用 vue 中的方法
+        alert(vm.getUserInfo());
+    }
+
+    function invoke_computed() {
+        // 调用 vue 中的计算属性
+        alert(vm.userInfo);
+    }
+
+</script>
+</body>
+</html>

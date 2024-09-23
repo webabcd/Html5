@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp</title>
+</head>
+<body>
+
+<script>
+
+    function showToast(data) {
+        alert(data);
+    }
+
+    function addScript(src) {
+        var script = document.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+        script.src = src;
+        document.body.appendChild(script);
+    }
+
+    window.onload = function() {
+        addScript('http://localhost:42858/jsonp?jsoncallback=showToast');
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>viewport 的说明</title>
+</head>
+<body>
+
+<div id="div"></div>
+
+<br />
+<br />
+
+很久很久以前，很少有针对移动端小屏做适配的网站，所以苹果在移动端的 Safari 中增加了一个功能，就是让网页认为浏览器的宽度为 980px，这样页面相对于大屏来书就会在小屏上以整体缩小的方式显示，用户想看某个地方就通过手势放大这个地方。
+<br/>
+现在大家开发页面都会适配小屏，你定死 980px 就不合适了，此时就可以通过 viewport 来指定宽度。
+<br/>
+&lt;meta name="viewport" content="width=device-width"&gt; 页面认为的宽度为设备宽度
+<br/>
+&lt;meta name="viewport" content="width=200"&gt; 页面认为的宽度为 200
+
+<script>
+    // window.innerWidth - 这个就是 viewport 中指定的宽度
+    // window.screen.width - 逻辑分辨率（逻辑分辨率乘以缩放比是物理分辨率）
+    // window.devicePixelRatio - 缩放比（逻辑分辨率乘以缩放比是物理分辨率）
+    document.getElementById("div").innerHTML = `window.innerWidth:${window.innerWidth}, window.screen.width:${window.screen.width}, window.devicePixelRatio:${window.devicePixelRatio}`;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+{
+  "name": "html5",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "rollup -c css/rollup.config.js",
+    "build:vue": "rollup -c vue/router/rollup.config.js",
+    "build:es6": "rollup -c es6/rollup.config.js",
+    "watch:es6": "rollup -c -w es6/rollup.config.js",
+    "minify:es6": "node es6/minify.js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "core-js": "^3.38.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.25.6",
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.4",
+    "autoprefixer": "^10.4.20",
+    "rollup-plugin-alias": "^2.2.0",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "uglify-js": "^3.19.3",
+    "vue": "^3.5.8",
+    "vue-router": "^4.4.5"
+  },
+  "browserslist": [
+    "defaults",
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 9",
+    "safari >= 7"
+  ]
+}

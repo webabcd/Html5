@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM scroll</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            font-size: 14px;
+            color: white;
+            background-color: orange;
+            width: 400px;
+            height: 200px;
+            overflow: scroll;
+        }
+
+    </style>
+</head>
+<body>
+
+<input type="button" onclick="scrollToSample();" value="scrollToSample" />
+<input type="button" onclick="scrollBySample();" value="scrollBySample" />
+
+<!--
+    onscroll - 滚动事件
+-->
+<div id="div1" onscroll="onscrollHandler();">
+    <div>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div>cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</div>
+</div>
+
+<script>
+    let div1 = document.querySelector("#div1");
+
+    function scrollToSample() {
+        // scrollTo(x, y) - 滚动到指定的位置
+        div1.scrollTo(20, 100);
+    }
+
+    function scrollBySample() {
+        // scrollBy(x, y) - 在当前位置的基础上，滚动指定的偏移量
+        div1.scrollBy(10, 10);
+    }
+
+    function onscrollHandler() {
+        // scrollWidth, scrollHeight - 内容的宽和高
+        // clientWidth, clientHeight - 可视区的宽和高
+        // scrollLeft, scrollTop - 滚动的偏移量
+        // 滚动到最右边，则 scrollLeft + clientWidth 等于 scrollWidth（也就是说水平方向的最大可滚动距离为 scrollWidth - clientWidth）
+        // 滚动到最下边，则 scrollTop + clientHeight 等于 scrollHeight（也就是说垂直方向的最大可滚动距离为 scrollHeight - clientHeight）
+        alert(`scrollWidth:${div1.scrollWidth}
+scrollHeight:${div1.scrollHeight}
+clientWidth:${div1.clientWidth}
+clientHeight:${div1.clientHeight}
+scrollLeft:${div1.scrollLeft}
+scrollTop:${div1.scrollTop}`);
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通过 Service Worker 拦截和处理网络请求（可以实现网络资源的缓存）</title>
+</head>
+<body>
+
+    <!--注：运行本示例时，必须要在一个 web server 中运行，不能通过直接打开本地文件的方式运行-->
+
+    <div onclick="loadjs();">loadjs</div>
+
+    <script>
+
+        function loadjs() {
+            let script = document.createElement("script");
+            script.async = false;
+            script.src = "js.js";
+            document.body.appendChild(script);
+        }
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () {
+                // 通过 navigator.serviceWorker.register() 注册指定的 service worker
+                // {scope: './'} 用于指定 service worker 的作用范围（'./' 是默认值，即作用范围是当前目录）
+                navigator.serviceWorker.register('worker.js', {scope: './'}).then(function (registration) {
+                    console.log('service worker successful', registration);
+                }).catch(function (err) {
+                    console.log('service worker registration failed', err);
+                });
+            });
+        }
+
+    </script>
+
+</body>
+</html>

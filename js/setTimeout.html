@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>setTimeout</title>
+</head>
+<body>
+<script>
+
+    let hello = name => {
+        console.log("hello: " + name);
+    };
+    // 最简单的不传参的写法
+    setTimeout(hello, 1000); // 1 秒后打印 hello: undefined
+    // 可以传参也可以不传参
+    setTimeout(() => { hello("webabcd") }, 1000); // 1 秒后打印 hello: webabcd
+
+
+    // setTimeout() 会返回这个计时器的 timeoutId
+    // 通过 clearTimeout(timeoutId) 可以在计时器指定的函数启动之前停止它（启动后则停止不了）
+    let timeoutId = setTimeout(() => { console.log("wanglei"); }, 2000); // 2 秒后启动
+    setTimeout(() => { clearTimeout(timeoutId); }, 1000); // 1 秒后停止上面的计时器，所以本例不会打印任何信息
+
+
+    // 不指定计时器的启动时间，则默认为 0 秒后启动，下面 2 句是一样的
+    // js 是单线程的，所以就算通过 setTimeout() 指定 0 秒后启动，也是要等到当前 loop 之后的下一个 loop 才会执行
+    // 所以打印 “start” 之后才会打印 “diandian 1” 和 “diandian 2”
+    setTimeout(() => { console.log("diandian 1"); });
+    setTimeout(() => { console.log("diandian 2"); }, 0);
+    console.log("start");
+
+</script>
+</body>
+</html>

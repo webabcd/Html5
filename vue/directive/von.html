@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 指令（v-on 事件处理）</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+
+    <!--
+        v-on 指令，用于事件处理
+          v-on:click 就是监听 click 事件，v-on:change 就是监听 change 事件，其他事件也是一样的
+          v-on: 可以简写为 @
+    -->
+
+    <!--在指令中可以使用简单的表达式-->
+    <button @click="myInt += 1">加1</button>{{ myInt }}
+
+    <br>
+    <!--调用 vue 中定义的方法（方法不要传参的话可以省略小括号）-->
+    <button @click="hi">hi</button>
+
+    <br>
+    <!--调用 vue 中定义的方法（带参数的）-->
+    <button @click="hello('webabcd')">hello</button>
+
+    <br>
+    <!--调用 vue 中定义的方法（可以调用多个，$event 就是 DOM 的事件参数）-->
+    <button @click="hello('webabcd'), hello('webabcd', $event)">hello</button>
+
+    <br>
+    <!--
+        v-on 指令支持的事件类修饰符（ modifier）
+          stop - 阻止冒泡
+          capture - 阻止捕获
+          prevent - 阻止事件的默认行为
+          self - 只监听当前元素触发的事件
+          once - 只触发一次
+          left - 鼠标左键事件
+          right - 鼠标右键事件
+          middle - 鼠标中键事件
+          注：修饰符支持链式调用，比如 @click.stop.capture.prevent 也是合法的
+    -->
+    <!--只触发一次-->
+    <button @click.once="hi">@click.once="hi</button>
+
+    <br>
+    <!--
+        v-on 指令支持的按键类修饰符（ modifier）
+          a,b,c,d 等
+          enter,tab,delete,esc,space,up,down,left,right 等
+          ctrl,alt,shift 等
+          left - 鼠标左键事件
+          right - 鼠标右键事件
+          middle - 鼠标中键事件
+          注：修饰符支持链式调用，比如 @keyup.ctrl.alt.d 也是合法的
+    -->
+    <!--右键单击-->
+    <button @click.right="hi">@click.right="hi</button>
+    <br>
+    <!--按下并抬起 a 键-->
+    <input @keyup.a="hi">
+    <br>
+    <!--按住 ctrl 后，按下并抬起 a 键-->
+    <input @keyup.ctrl.a="hi">
+    <br>
+
+    <!--
+        v-on 指令支持 exact 修饰符（ modifier）
+          exact 的意思是精确匹配
+    -->
+    <!--
+        没有 exact 的话，你同时按 a,b 或者 ctrl,a 或者 ctrl,a,b 之类的都会被监听到
+        有 exact 的话，上述操作就不会被监听到，而是你只按 a 的情况才会被监听到
+    -->
+    <input @keyup.a.exact="hi">
+
+    <!--默认情况，你在 form 按回车的话，表单就提交了。通过 @submit.prevent 就可以阻止表单的提交-->
+    <form @submit.prevent>
+        <input>
+    </form>
+
+    <!--阻止表单的默认提交，并调用指定的函数-->
+    <form @submit.prevent="hi">
+        <input>
+    </form>
+
+</div>
+
+<script>
+
+    const option = {
+
+        data() {
+            return {
+                myInt: 0
+            }
+        },
+        methods: {
+            hi(event) {
+                alert('hello: vue');
+                // event 是 DOM 的事件参数，如果在 v-on: 中指定处理函数时不加小括号，则默认会传 event 参数
+                if (event) {
+                    alert("event.target.tagName:" + event.target.tagName);
+                }
+            },
+            hello(name, event) {
+                // event 是 DOM 的事件参数，如果在 v-on: 中指定处理函数时需要传 event 参数，则传 $event 即可
+                alert('hello: ' + name);
+                if (event) {
+                    alert("event.target.tagName:" + event.target.tagName);
+                }
+            }
+        }
+    };
+
+    const vm = Vue.createApp(option).mount('#root')
+
+</script>
+</body>
+</html>

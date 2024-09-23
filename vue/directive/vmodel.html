@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 指令（v-model 双向绑定）</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+
+    <!--
+        v-model 指令，用于双向绑定（即 vm 变了 v 就变，v 变了 vm 就变）
+          文本输入框是通过 oninput 事件告知 vm 发生变化的
+          checkbox/radio/select 是通过 onchange 事件告知 vm 发生变化的
+
+        v-model 指令支持 lazy, number, trim 修饰符（ modifier）
+          v-model.lazy
+            文本输入框改为通过 onchange 事件告知 vm 发生变化
+          v-model.number
+            文本输入框在告知 vm 发生变化时，传递给 vm 的数据是原始值转换为数字类型后的数据
+          v-model.trim
+            文本输入框在告知 vm 发生变化时，传递给 vm 的数据是原始值 trim() 后的数据
+          注：修饰符支持链式调用，比如 v-model.lazy.trim 也是合法的
+    -->
+
+    <!--文本输入框与字符串绑定-->
+    <input v-model="myMessage">
+    <br>
+    <input v-model.lazy="myMessage">
+    <br>
+    <input v-model.number="myMessage"></input>
+    <br>
+    <textarea v-model.trim="myMessage"></textarea>
+
+    <br>
+    <!--checkbox 绑定 bool 值（true 就是选中）-->
+    <input type="checkbox" v-model="myChecked">{{myChecked}}
+
+    <br>
+    <!--checkbox 绑定字符串数组（checkbox 的 value 值在字符串数组中就是选中）-->
+    <input type="checkbox" value="webabcd" v-model="myCheckedNames">
+    <input type="checkbox" value="wanglei" v-model="myCheckedNames">
+    {{ myCheckedNames }}
+
+    <br>
+    <!--radio 绑定字符串数组（radio 的 value 值在字符串数组中就是选中）-->
+    <input type="radio" value="webabcd" v-model="myCheckedName">
+    <input type="radio" value="wanglei" v-model="myCheckedName">
+    {{ myCheckedName }}
+
+    <br>
+    <!--select 绑定字符串（option 的 value 值与 select 绑定的字符串相等，则是选中）-->
+    <select v-model="mySelected">
+        <option value="0">你是谁？</option>
+        <option value="1">我是 webabcd</option>
+        <option value="2">我是 wanglei</option>
+    </select>
+    {{ mySelected }}
+
+    <br>
+    <!--通过 v-for 指令构造 select 的 option-->
+    <select v-model="mySelected">
+        <option v-for="option in myOptions" :value="option.value">
+            {{ option.text }}
+        </option>
+    </select>
+    {{ mySelected }}
+
+</div>
+
+<script>
+
+    Vue.createApp({
+        data() {
+            return {
+                myMessage: "hello: vue",
+                myChecked: true,
+                myCheckedNames: ["webabcd"],
+                myCheckedName: "wanglei",
+                mySelected: "2",
+                myOptions: [
+                    { text: '你是谁？', value: '0' },
+                    { text: '我是 webabcd', value: '1' },
+                    { text: '我是 wanglei', value: '2' }
+                ]
+            }
+        }
+    }).mount('#root')
+
+</script>
+</body>
+</html>

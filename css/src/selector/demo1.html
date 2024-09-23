@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>基础，通配符选择器，元素选择器，id 选择器，类选择器</title>
+    <!-- 引用外部样式表
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    -->
+    <style>
+        /* 通配符选择器（universal selector） */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 元素选择器（element selector），又称为类型选择器（type selector） */
+        h1 {
+            font-size: 14px;
+            color: red;
+        }
+
+        /* id 选择器（id selector），“*” 可以省略 */
+        *#h2 {
+            font-size: 16px;
+            color: blue;
+        }
+
+        /* 类选择器（class selector），“*” 可以省略 */
+        *.h3 {
+            font-size: 18px;
+            color: green;
+        }
+
+        /* 通过“,”分隔可同时定义多个选择器 */
+        h1, #h2, .h3 {
+            color: orange;
+        }
+
+        /* class 选择器可以同时指定多个，使用时用空格分开，参见后面的示例 */
+        .c1 {
+            font-size: 20px;
+        }
+        .c2 {
+            color: red;
+        }
+
+        /* 匹配的是 h5 内的 .c3 的元素 */
+        h5.c3 {
+            font-size: 22px;
+        }
+
+        /* 匹配的是同时存在 .c3 和 .c4 的元素 */
+        .c3.c4 {
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1>h1</h1>
+<h2 id="h2">h2</h2>
+<h3 class="h3">h3</h3>
+<h4 class="c1 c2">h4(c1 c2)</h4>
+<h5 class="c3 c4">h5(c3 c4)</h5>
+<h6 class="c3">h6(c3)</h6>
+<h6 class="c4">h6(c4)</h6>
+<h6 class="c3 c4">h6(c3 c4)</h6>
+
+<div>
+    <div>子会继承父的样式</div>
+    <div>同选择器，后面定义的会覆盖前面定义的</div>
+    <div>
+        不同选择器，权值如下：
+        <br />
+        内联样式 - 1000
+        <br />
+        id 选择器 - 100
+        <br />
+        类选择器 - 10
+        <br />
+        伪类 - 10
+        <br />
+        伪元素 - 1
+        <br />
+        标签选择器 - 1
+    </div>
+</div>
+
+</body>
+</html>

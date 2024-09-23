@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>通过 web worker 实现多线程（演示如何转移数据的所有权）</title>
+</head>
+<body>
+
+    <!--注：运行本示例时，必须要在一个 web server 中运行，不能通过直接打开本地文件的方式运行-->
+    
+    <button id="buttonStartThread">启动 worker 线程</button>
+    <div id="result"></div>
+    <script>
+        let buttonStartThread = document.getElementById('buttonStartThread');
+        buttonStartThread.onclick = function() {
+            let worker = new Worker('worker_transferable.js');
+
+            /**
+             * worker 的 postMessage 的第 2 个参数是一个对象数组（对象必须是 ArrayBuffer 或 MessagePort 或 ImageBitmap 类型）
+             * 其用于将指定数据的所有权从当前上下文转移到 worker 的上下文（即当前上下文会清除掉这些数据，从而减少内存开销）
+             */
+
+            let buffer1 = new ArrayBuffer(8);
+            let buffer2 = new ArrayBuffer(16);
+
+            // buffer1 length:8, buffer2 length:16
+            console.log(`buffer1 length:${buffer1.byteLength}, buffer2 length:${buffer2.byteLength}`);
+
+            worker.postMessage({
+                b1: buffer1,
+                b2: buffer2
+            });
+
+            // buffer1 length:8, buffer2 length:16
+            console.log(`buffer1 length:${buffer1.byteLength}, buffer2 length:${buffer2.byteLength}`);
+
+            worker.postMessage({
+                b1: buffer1,
+                b2: buffer2
+            }, [buffer1, buffer2]); // 将 buffer1 和 buffer2 的所有权从当前上下文转移到 worker 的上下文
+
+            // buffer1 length:0, buffer2 length:0
+            console.log(`buffer1 length:${buffer1.byteLength}, buffer2 length:${buffer2.byteLength}`); // buffer1 和 buffer2 在当前上下文中被清空了
+        }
+    </script>
+
+</body>
+</html>

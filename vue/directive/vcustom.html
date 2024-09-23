@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue 指令（自定义指令）</title>
+    <script src="../../node_modules/vue/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="root">
+    <!--使用自定义指令-->
+    <div v-webabcd="128">自定义指令</div>
+</div>
+
+<script>
+    var app = Vue.createApp({});
+
+    // 定义一个自定义指令（注：定义的名称不包括 v- 前缀）
+    // el - 指定绑定的元素
+    // binding - 一个对象
+    //   name - 指令名，不包括 v- 前缀
+    //   value - 指令的绑定值（比如 v-webabcd="1 + 1" 其 value 为 2）
+    //   expression - 指令的表达式，字符串类型（比如 v-webabcd="1 + 1" 其 expression 为 "1 + 1"）
+    //   arg - 指令的参数（比如 v-webabcd:abc 其 arg 为 "abc"）
+    //   modifiers - 指令的修饰符对象（比如 v-webabcd.x.y 其 modifiers 为 { x: true, y true }）
+    app.directive('webabcd', function (el, binding) {
+        el.style.fontSize = binding.value + "px";
+    });
+
+    var vm = app.mount('#root');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB - IDBKeyRange 的使用（按照指定的主键范围获取数据或删除数据）</title>
+</head>
+<body>
+
+<script>
+
+    var request = window.indexedDB.open('myDB2', 1);
+    request.onupgradeneeded = function(event) {
+        var db = event.target.result;
+        if (!db.objectStoreNames.contains('employee')) {
+            var objectStore = db.createObjectStore('employee', { keyPath: 'id' });
+        }
+    };
+
+    request.onsuccess = function(event) {
+        db = event.target.result;
+
+        initData(db);
+
+        // 表示主键从 3 到 7 的数据
+        // 第 3 个参数如果是 true 的话则不包括主键为 3 的数据，默认值是 false
+        // 第 4 个参数如果是 true 的话则不包括主键为 7 的数据，默认值是 false
+        var range = IDBKeyRange.bound(3, 7, false, false);
+
+        // 表示主键为 1 的数据
+        // var range = IDBKeyRange.only(1);
+
+        // 表示主键大于等于 3 的数据
+        // 第 2 个参数如果是 true 的话则不包括主键为 3 的数据，默认值是 false
+        // var range = IDBKeyRange.lowerBound(1, false);
+
+        // 表示主键小于等于 7 的数据
+        // 第 2 个参数如果是 true 的话则不包括主键为 7 的数据，默认值是 false
+        // var range = IDBKeyRange.upperBound(7, false);
+
+        var objectStoreEmployee = db.transaction(['employee'], 'readwrite').objectStore('employee');
+        // 根据 IDBKeyRange 打开游标
+        objectStoreEmployee.openCursor(range).onsuccess = function(event) {
+            var cursor = event.target.result;
+            if (cursor) {
+                console.log('employee', cursor.value);
+                cursor.continue();
+            } else {
+                console.log('没有更多数据了');
+            }
+        }
+
+        // 根据 IDBKeyRange 删除数据
+        // var request = objectStoreEmployee.delete(range);
+    };
+
+    function initData(db) {
+        var objectStoreEmployee = db.transaction(['employee'], 'readwrite').objectStore('employee');
+        for (var i = 0; i < 10; i++) {
+            var random = Math.ceil(Math.random() * 5);
+            objectStoreEmployee.add({ id: i + 1, name: 'webabcd_' + random});
+        }
+    }
+
+</script>
+
+</body>
+</html>

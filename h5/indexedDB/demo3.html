@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IndexedDB - 保存二进制数据</title>
+</head>
+<body>
+
+<!--将用户选择的图片保存到 IndexedDB-->
+<input id="inputFile" type="file" onchange="updateFile();"/>
+<br />
+
+<!--从 IndexedDB 中加载图片数据-->
+<button onclick="loadImage();">从 IndexedDB 中加载图片并显示</button>
+<br />
+
+<!--显示从 IndexedDB 中加载的图片-->
+<img id="img" />
+
+<script>
+
+    var request = window.indexedDB.open('myDB3', 1);
+    var db;
+    request.onupgradeneeded = function(event) {
+        db = event.target.result;
+        if (!db.objectStoreNames.contains('image')) {
+            var objectStore = db.createObjectStore('image', { keyPath: 'id' });
+        }
+    };
+    request.onsuccess = function(event) {
+        db = event.target.result;
+    };
+
+    // 将用户选择的图片保存到 IndexedDB
+    function updateFile() {
+        let inputFile = document.getElementById("inputFile");
+        let file = inputFile.files[0];
+        let reader = new FileReader();
+
+        reader.readAsArrayBuffer(file);
+        reader.onload = function (e) {
+            // 图片的后缀名
+            var type = file.name.split('.')[1];
+            // 图片的 ArrayBuffer 数据
+            var image = this.result;
+
+            // 将图片数据保存到 IndexedDB
+            var objectStore = db.transaction(['image'], 'readwrite').objectStore('image');
+            var request = objectStore.put({ id: 1, type: type, image: image});
+            request.onsuccess = function (event) {
+                console.log('图片保存成功', event);
+            };
+            request.onerror = function (event) {
+                console.log('图片保存失败', event);
+            }
+        }
+    }
+
+    // 从 IndexedDB 中加载图片数据并显示
+    function loadImage() {
+        var objectStore = db.transaction(['image'], 'readwrite').objectStore('image');
+        var request = objectStore.get(1);
+        request.onsuccess = function(event) {
+            if (event.target.result) {
+                var item = event.target.result;
+                // 将图片的 ArrayBuffer 数据转换为 base64 字符串
+                var base64 = arrayBufferToBase64(item.image);
+                // 将图片的 base64 数据显示到 <img /> 上
+                document.getElementById('img').src = 'data:image/' + item.type + ';base64,' + base64;
+            } else {
+                console.log('无数据');
+            }
+        };
+    }
+
+    function arrayBufferToBase64(buffer) {
+        var binary = '';
+        var bytes = new Uint8Array(buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+            binary += String.fromCharCode(bytes[i]);
+        }
+        return window.btoa(binary);
+    }
+
+</script>
+
+</body>
+</html>
