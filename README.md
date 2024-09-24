@@ -81,12 +81,14 @@ es6 项目演示
 - js/closure.html
 3. js 的 jsonp
 - js/jsonp.html
+- WebApi/WebApi/ApiController.cs
 4. js 的 setTimeout
 - js/setTimeout.html
 5. js 的 setInterval
 - js/setInterval.html
 6. js 的跨域请求 XMLHttpRequest
 - js/XMLHttpRequest.html
+- WebApi/WebApi/ApiController.cs
 
 #### dom
 1. DOM 获取元素，修改元素的样式
@@ -205,6 +207,7 @@ es6 项目演示
 - es6/src/advanced/async_await.js
 4. fetch
 - es6/src/advanced/fetch.js
+- WebApi/WebApi/ApiController.cs
 5. iterator, generator
 - es6/src/advanced/iterator_generator.js
 6. proxy, reflect
