@@ -159,20 +159,20 @@ es6 项目演示
 - es6/src/basic/var_let_const.js
 2. null, undefined
 - es6/src/basic/null_undefined.js
-3. boolean
-- es6/src/basic/boolean.js
-4. number
+3. number
 - es6/src/basic/number.js
-5. string
+4. string
 - es6/src/basic/string.js
-6. symbol
+5. symbol
 - es6/src/basic/symbol.js
-7. array
+6. array
 - es6/src/basic/array.js
-8. set
+7. set
 - es6/src/basic/set.js
-9. map
+8. map
 - es6/src/basic/map.js
+9. blob
+- es6/src/basic/blob.js
 
 ### es6 类
 1. object
