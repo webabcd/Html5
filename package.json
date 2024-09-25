@@ -5,7 +5,7 @@
     "build:css": "rollup -c css/rollup.config.js",
     "build:vue": "rollup -c vue/router/rollup.config.js",
     "build:es6": "rollup -c es6/rollup.config.js",
-    "watch:es6": "rollup -c -w es6/rollup.config.js",
+    "watch:es6": "rollup -c es6/rollup.config.js -w",
     "minify:es6": "node es6/minify.js"
   },
   "dependencies": {

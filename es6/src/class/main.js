@@ -13,6 +13,9 @@ Person.prototype.hello = function () {
 }
 let obj = new Person("webabcd", 40);
 console.log(`${obj.hello()} ${obj.name} ${obj.age}`);
+// 可以通过 delete 删除对象的属性
+delete obj.age; // 删除属性
+console.log(obj.age); // undefined
 
 
 // 演示 es6 中的类的基本应用
