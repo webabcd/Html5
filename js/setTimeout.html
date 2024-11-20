@@ -12,8 +12,12 @@
     };
     // 最简单的不传参的写法
     setTimeout(hello, 1000); // 1 秒后打印 hello: undefined
-    // 可以传参也可以不传参
-    setTimeout(() => { hello("webabcd") }, 1000); // 1 秒后打印 hello: webabcd
+    // 可以传参也可以不传参（通过匿名函数包装的方式）
+    setTimeout(function() { hello('webabcd'); }, 1000); // 1 秒后打印 hello: webabcd
+    // 可以传参也可以不传参（通过 bind 绑定参数的方式）
+    setTimeout(hello.bind(null, 'webabcd'), 1000); // 1 秒后打印 hello: webabcd
+    // 可以传参也可以不传参（通过箭头函数的方式）
+    setTimeout(() => { hello("webabcd"); }, 1000); // 1 秒后打印 hello: webabcd
 
 
     // setTimeout() 会返回这个计时器的 timeoutId
